@@ -26,57 +26,26 @@
 <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 <![endif]-->
 <div class="container">
-  <div class="cbioportal-tooltip z-depth-2">
+  <div class="oncokb-card z-depth-2">
     <div>
-      <div class="item" style="
-    padding-top: 0;
-">
+      <div class="item">
         <div class="col s12 tip-header">
           BRAF V600E in Melanoma
         </div>
         <div class="col s12">
-          <ul class="tabs" tabs="" style="width: 100%;">
+          <ul class="tabs" tabs="">
             <li class="tab col s6">
-              <div class="" href="#oncogenic" style="
-    font-size: 8px;
-    color: white;
-    line-height: 25px;
-"><span style="
-    font-size: 14px;
-    width: 100%;
-    float: left;
-    line-height: 25px;
-">clinical implications</span><span style="
-    width: 100%;
-    float: left;
-    line-height: 25px;
-    color: orange;
-    font-size: 13px;
-        text-transform: none;
-">Oncogenic <i class="fa fa-book" style="color: white;"></i></span>
+              <div class="oncogenic" href="#oncogenic">
+                <span class="title">clinical implications</span>
+                <span class="content">Oncogenic <i class="fa fa-book"></i></span>
               </div>
             </li>
             <li class="tab col s6">
-              <div class="" href="#oncogenic" style="
-    font-size: 8px;
-    line-height: 25px;
-    color: white;
-">
-              <span style="
-    font-size: 14px;
-    width: 100%;
-    float: left;
-    line-height: 25px;
-">Biological Effect</span><span style="
-    width: 100%;
-    float: left;
-    line-height: 25px;
-    color: orange;
-    font-size: 13px;
-        text-transform: none;
-">Likely Switch-of-function <i class="fa fa-book" style="color: white;" qtip qtip-content="123"></i></span></div>
+              <div class="mutation-effect">
+              <span class="title">Biological Effect</span>
+              <span class="content">Likely Switch-of-function <i class="fa fa-book"></i></span></div>
             </li>
-            <div class="indicator" style="right: 250px; left: 0px;"></div>
+            <div class="indicator"></div>
           </ul>
         </div>
         <div id="oncogenic" class="col s12 tabsContent" style="display: block;margin: 10px 10px 0 10px;">
@@ -93,43 +62,45 @@
       </div>
 
       <div class="item">
-        <table style="
-    margin: 0 10px;
-    font-size: 13px;
-    text-align: center;
-" class="bordered">
+        <table class="bordered table">
           <thead>
           <tr>
             <th>Level</th>
             <th>Drug(s)</th>
-            <th>Level-associated cancer type(s)</th>
+            <th>Level-associated<br/>cancer type(s)</th>
+            <th>Citation(s)</th>
           </tr>
           </thead>
           <tbody>
           <tr>
-            <td><img src="images/level-1.png" class="level-1"></td>
+            <td><i class="level-icon level-1"></i></td>
             <td>Dabrafenib</td>
             <td>Melanoma</td>
+            <td><i class="fa fa-book"></i></td>
           </tr>
           <tr>
-            <td><img src="images/level-1.png" class="level-1"></td>
+            <td><i class="level-icon level-2A"></i></td>
             <td>Trametinib</td>
             <td>Melanoma</td>
+            <td></td>
           </tr>
           <tr>
-            <td><img src="images/level-1.png" class="level-1"></td>
+            <td><i class="level-icon level-2B"></i></td>
             <td>Trametinib + Dabrafenib</td>
             <td>Melanoma</td>
+            <td></td>
           </tr>
           <tr>
-            <td><img src="images/level-1.png" class="level-1"></td>
+            <td><i class="level-icon level-3A"></i></td>
             <td>Vemurafenib</td>
             <td>Melanoma</td>
+            <td></td>
           </tr>
           <tr>
-            <td><img src="images/level-1.png" class="level-1"></td>
+            <td><i class="level-icon level-3B"></i></td>
             <td>Vemurafenib+Cobimetinib</td>
             <td>Melanoma</td>
+            <td><i class="fa fa-book"></i></td>
           </tr>
           </tbody>
         </table>
@@ -137,9 +108,7 @@
       <div class="item">
         <p style="
     padding: 0 10px;
-"><i style="
-    /* padding: 0 10px; */
-">The information above is intended for research purposes only and should not be used as a substitute for professional
+"><i style="color: grey">The information above is intended for research purposes only and should not be used as a substitute for professional
           diagnosis and treatment.</i></p>
       </div>
       <div class="item-list" style="
@@ -177,19 +146,9 @@
           </li>
         </ul>
       </div>
-      <div class="item" style="
-    /* display: inline-block; */
-     width: 100%;
-    padding-top: 0;
-    line-height: 40px;
-    height: 40px;
-">
-        <img src="images/oncokb_logo.png" style="
-    height: 19px;
-    margin-left: 10px;
-    margin-top: -4px;
-">
-        <span class="pull-right" style="margin-right: 10px"><i class="font-size: 12px">Feedback</i></span></div>
+      <div class="item footer">
+        <img src="images/oncokb.png" class="oncokb-logo">
+        <span class="pull-right feedback"><button class="btn btn-default btn-xs"><i>Feedback</i></button></span></div>
     </div>
   </div>
 
@@ -204,6 +163,7 @@
 <!-- build:js scripts/main.js -->
 <script src="scripts/vendor/jquery.easing.1.3.js"></script>
 <script src="scripts/vendor/collapsible.js"></script>
+<script src="scripts/vendor/tabs.js"></script>
 <script src="scripts/main.js"></script>
 <!-- endbuild -->
 </body>

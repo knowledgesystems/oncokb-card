@@ -5,7 +5,6 @@ $icon-font-path: "../bower_components/bootstrap-sass/assets/fonts/bootstrap/";
 @import "bower_components/font-awesome/scss/font-awesome.scss";
 // endbower
 
-
 $darker-blue: #064785;
 $dark-blue: #1c75cd;
 $medium-blue: #03aedf;
@@ -13,17 +12,84 @@ $light-blue: #9bdcff;
 $orange: #c84e23;
 $oncokb-orange: #ffa500;
 
-.cbioportal-tooltip {
-  margin:auto;
+.oncokb-card {
+  margin: auto;
   margin-top: 50px;
   width: 500px;
 
   @import "global";
+  @import "level-icon";
   @import "table";
   @import "collapsible";
   @import "tabs";
 
+  .oncogenic {
+    font-size: 8px;
+    color: white;
+    line-height: 25px;
+    .title {
+      font-size: 14px;
+      width: 100%;
+      float: left;
+      line-height: 25px;
+    }
+    .content {
+      width: 100%;
+      float: left;
+      line-height: 25px;
+      color: orange;
+      font-size: 13px;
+      text-transform: none;
+    }
+    .fa.fa-book {
+      color: #fff;
+    }
+    .table {
+      margin: 0 10px;
+      font-size: 13px;
+      text-align: center;
+    }
+  }
 
+  .mutation-effect {
+    font-size: 8px;
+    line-height: 25px;
+    color: white;
+
+    .title {
+      font-size: 14px;
+      width: 100%;
+      float: left;
+      line-height: 25px;
+    }
+    .content {
+      width: 100%;
+      float: left;
+      line-height: 25px;
+      color: orange;
+      font-size: 13px;
+      text-transform: none;
+    }
+    .fa.fa-book {
+      color: #fff;
+    }
+  }
+
+  .footer {
+    width: 100%;
+    padding-top: 0;
+    line-height: 40px;
+    height: 40px;
+    .oncokb-logo {
+      height: 19px;
+      margin-left: 10px;
+      margin-top: -4px;
+    }
+    .feedback {
+      margin-right: 10px;
+      font-size: 12px;
+    }
+  }
   .tabs {
     height: 53px;
   }
@@ -57,6 +123,8 @@ $oncokb-orange: #ffa500;
   .tabs .indicator {
     background-color: $oncokb-orange;
     height: 3px;
+    right: 250px;
+    left: 0px;
   }
 
   .thead {
@@ -90,7 +158,7 @@ $oncokb-orange: #ffa500;
   table {
     width: calc(100% - 20px);
   }
-  table thead th{
+  table thead th {
     border-bottom: 2px solid $dark-blue;
   }
 

@@ -1,0 +1,44 @@
+.level-icon {
+  width: 15px;
+  height: 15px;
+  line-height: 15px;
+  background-image: url("../images/levels_colors.png");
+  -webkit-background-size: 200px;
+  background-size: 200px;
+  display: inline-block !important;
+}
+.level-1 {
+  background-position: -15px -21px;
+}
+
+.level-2A {
+  background-position: -40px -21px;
+}
+
+.level-2B {
+  background-position: -65px -21px;
+}
+
+.level-3A {
+  background-position: -90px -21px;
+}
+
+.level-3B {
+  background-position: -115px -21px;
+}
+
+.level-4 {
+  background-position: -120px -21px;
+}
+
+.level-R1 {
+  background-position: -15px -51px;
+}
+
+.level-R2 {
+  background-position: -40px -51px;
+}
+
+.level-R3 {
+  background-position: -65px -51px;
+}
