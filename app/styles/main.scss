@@ -1,0 +1,109 @@
+$icon-font-path: "../bower_components/bootstrap-sass/assets/fonts/bootstrap/";
+
+// bower:scss
+@import "bower_components/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
+@import "bower_components/font-awesome/scss/font-awesome.scss";
+// endbower
+
+
+$darker-blue: #064785;
+$dark-blue: #1c75cd;
+$medium-blue: #03aedf;
+$light-blue: #9bdcff;
+$orange: #c84e23;
+$oncokb-orange: #ffa500;
+
+.cbioportal-tooltip {
+  margin:auto;
+  margin-top: 50px;
+  width: 500px;
+
+  @import "global";
+  @import "table";
+  @import "collapsible";
+  @import "tabs";
+
+
+  .tabs {
+    height: 53px;
+  }
+  .tabs .tab {
+    line-height: 53px;
+    height: 53px;
+  }
+  .tabs li.tab {
+    //height: 70px;
+    background-color: $darker-blue;
+  }
+  .tabs li.tab:hover {
+    //height: 70px;
+    opacity: 0.7;
+    cursor: pointer;
+  }
+
+  .tabs .tab a {
+    color: white;
+    opacity: 0.6;
+  }
+
+  .tabs .tab a.active {
+    opacity: 1;
+  }
+
+  .tabs .tab a:hover {
+    color: white;
+  }
+
+  .tabs .indicator {
+    background-color: $oncokb-orange;
+    height: 3px;
+  }
+
+  .thead {
+    border: 0;
+  }
+
+  .collapsible-body p {
+    padding: 0 1rem;
+  }
+
+  .collapsible {
+    border-left: 0;
+    border-right: 0;
+    box-shadow: none;
+  }
+
+  td, th {
+    padding: 3px 5px;
+    text-align: center;
+    font-size: 12px;
+  }
+
+  .item {
+    //border-bottom: 2px solid $dark-blue;
+    //margin: 10px;
+    padding-top: 10px;
+  }
+  .item-list {
+    //margin: 0 10px;
+  }
+  table {
+    width: calc(100% - 20px);
+  }
+  table thead th{
+    border-bottom: 2px solid $dark-blue;
+  }
+
+  .levels {
+    padding: 0 10px;
+    font-size: 12px;
+  }
+
+  .tip-header {
+    line-height: 50px;
+    font-size: 17px;
+    background-color: $dark-blue;
+    color: #fff;
+    padding-left: 15px;
+  }
+}
