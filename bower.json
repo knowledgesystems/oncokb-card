@@ -6,7 +6,8 @@
     "modernizr": "~2.8.3",
     "font-awesome": "fontawesome#^4.6.3",
     "underscore": "^1.8.3",
-    "velocity": "^1.2.3"
+    "velocity": "^1.2.3",
+    "qtip2": "^2.2.1"
   },
   "overrides": {
     "bootstrap-sass": {
