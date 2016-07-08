@@ -25,138 +25,13 @@
 <!--[if lt IE 10]>
 <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
 <![endif]-->
-<div class="container">
-  <div class="oncokb-card z-depth-2">
-    <div>
-      <div class="item">
-        <div class="col s12 tip-header">
-          BRAF V600E in Melanoma
-        </div>
-        <div class="col s12">
-          <ul class="tabs" tabs="">
-            <li class="tab col s6">
-              <div class="oncogenic" href="#oncogenic">
-                <span class="title">clinical implications</span>
-                <span class="content">Oncogenic <i class="fa fa-book"></i></span>
-              </div>
-            </li>
-            <li class="tab col s6">
-              <div class="mutation-effect">
-              <span class="title">Biological Effect</span>
-              <span class="content">Likely Switch-of-function <i class="fa fa-book"></i></span></div>
-            </li>
-            <div class="indicator"></div>
-          </ul>
-        </div>
-        <div id="oncogenic" class="col s12 tabsContent" style="display: block;margin: 10px 10px 0 10px;">
-          BRAF encodes an intracellular kinase and component of the pro-oncogenic MAP-kinase signaling pathway. Mutations
-          of BRAF are found in various cancers, including melanoma and lung cancer. The BRAF V600E mutation is known to be
-          oncogenic.
-        </div>
-        <div id="mutation-effect" class="col s12 tabsContent" style="display: none;margin: 10px 10px 0 10px;">
-          There is level 1 evidence that V600E or V600K mutations in BRAF is associated with response to FDA-approved
-          combination of RAF-inhibitor dabrafenib and trametinib in melanoma (PMID: 25287827, 25399551, 25265492), as well
-          as dabrafenib monotherapy in non-small cell lung cancer (Planchard, D et al. J Clin. Oncol. abstract 8009;
-          2013).
-        </div>
-      </div>
-
-      <div class="item">
-        <table class="bordered table">
-          <thead>
-          <tr>
-            <th>Level</th>
-            <th>Drug(s)</th>
-            <th>Level-associated<br/>cancer type(s)</th>
-            <th>Citation(s)</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td><i class="level-icon level-1"></i></td>
-            <td>Dabrafenib</td>
-            <td>Melanoma</td>
-            <td><i class="fa fa-book"></i></td>
-          </tr>
-          <tr>
-            <td><i class="level-icon level-2A"></i></td>
-            <td>Trametinib</td>
-            <td>Melanoma</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td><i class="level-icon level-2B"></i></td>
-            <td>Trametinib + Dabrafenib</td>
-            <td>Melanoma</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td><i class="level-icon level-3A"></i></td>
-            <td>Vemurafenib</td>
-            <td>Melanoma</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td><i class="level-icon level-3B"></i></td>
-            <td>Vemurafenib+Cobimetinib</td>
-            <td>Melanoma</td>
-            <td><i class="fa fa-book"></i></td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="item">
-        <p style="
-    padding: 0 10px;
-"><i style="color: grey">The information above is intended for research purposes only and should not be used as a substitute for professional
-          diagnosis and treatment.</i></p>
-      </div>
-      <div class="item-list" style="
-    /* padding: 0 10px; */
-    padding-top: 10px;
-">
-        <ul class="collapsible" data-collapsible="accordion">
-          <li class="">
-            <div class="collapsible-header">Levels<span class="secondary-content"><i
-              style="color: orange; margin-right: 0;"
-              class="glyphicon glyphicon-chevron-down"></i></span>
-            </div>
-            <div class="collapsible-body levels" style="display: none;">
-              <ul>
-                <li><b>Level 1:</b> FDA-approved biomarjer and drug in this indication.</li>
-                <li><b>Level 2A:</b> Standard-of-care biomarker and drug in this indication but not FDA-approved.</li>
-                <li><b>Level 2B:</b> FDA-approved biomarker and drug in another indication, but not FDA or NCCN
-                  compendium-listed for this indication.
-                </li>
-                <li><b>Level 3A:</b> Clinical evidence links biomarker to drug response in this indication but neither
-                  biomarker or drug are FDA-approved or NCCN compendium-listed.
-                </li>
-                <li><b>Level 3B:</b> Clinical evidence links biomarker to drug response in another indication but neither
-                  biomarker or drug are FDA-approved or NCCN compendium-listed.
-                </li>
-              </ul>
-            </div>
-          </li>
-          <li class="">
-            <div class="collapsible-header">Powered by OncoKB(Beta)<span class="secondary-content"><i
-              style="color: orange; margin-right: 0;" class="glyphicon glyphicon-chevron-down"></i></span></div>
-            <div class="collapsible-body" style="display: none;"><p>OncoKB is under development. To report errors or
-              missing annotation about this variant, please send us feedback. For general feedback, please send an email
-              to oncokb@cbio.mskcc.org</p></div>
-          </li>
-        </ul>
-      </div>
-      <div class="item footer">
-        <img src="images/oncokb.png" class="oncokb-logo">
-        <span class="pull-right feedback"><button class="btn btn-default btn-xs"><i>Feedback</i></button></span></div>
-    </div>
-  </div>
-
+<div class="container" id="main">
 </div>
 
 <!-- build:js scripts/vendor.js -->
 <!-- bower:js -->
 <script src="/bower_components/jquery/dist/jquery.js"></script>
+<script src="/bower_components/underscore/underscore.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
 
@@ -166,5 +41,17 @@
 <script src="scripts/vendor/tabs.js"></script>
 <script src="scripts/main.js"></script>
 <!-- endbuild -->
+
+<script>
+  $(document).ready(function() {
+    $('#main').load('template.html', function() {
+      _.templateSettings = {
+        interpolate : /\{\{(.+?)\}\}/g
+      };
+
+      OncoKBCard.init();
+    });
+  })
+</script>
 </body>
 </html>

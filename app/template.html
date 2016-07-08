@@ -1,0 +1,96 @@
+<script type="text/template" id="oncokb-card">
+  <div class="oncokb-card z-depth-2">
+    <div class="item">
+      <div class="col s12 tip-header">{{title}}</div>
+      <div class="col s12">
+        <ul class="tabs" tabs="">
+          <li class="tab col s6">
+            <div class="oncogenic" href="#oncogenic">
+              <span class="title">clinical implications</span>
+              <span class="content">{{oncogenicity}} <i class="fa fa-book" qtip-content="{{oncogenicityCitations}}"></i></span>
+            </div>
+          </li>
+          <li class="tab col s6">
+            <div class="mutation-effect">
+              <span class="title">Biological Effect</span>
+              <span class="content">{{mutationEffect}} <i class="fa fa-book" qtip-content="{{mutationEffectCitations}}"></i></span>
+            </div>
+          </li>
+          <div class="indicator"></div>
+        </ul>
+      </div>
+      <div id="oncogenic" class="col s12 tabsContent" style="display: block;margin: 10px 10px 0 10px;">
+        {{clinicalSummary}}
+      </div>
+      <div id="mutation-effect" class="col s12 tabsContent" style="display: none;margin: 10px 10px 0 10px;">
+        {{biologicalSummary}}
+      </div>
+    </div>
+
+    <div class="item">
+      <table class="bordered table">
+        <thead>
+        <tr>
+          <th>Level</th>
+          <th>Drug(s)</th>
+          <th>Level-associated<br/>cancer type(s)</th>
+          <th>Citation(s)</th>
+        </tr>
+        </thead>
+        <tbody>
+          {{treatmentRows}}
+        </tbody>
+      </table>
+    </div>
+    <div class="item">
+      <p style=" padding: 0 10px;"><i style="color: grey">
+        The information above is intended for research purposes only and should not be used as a
+        substitute for professional
+        diagnosis and treatment.</i></p>
+    </div>
+    <div class="item-list" style="padding-top: 10px;">
+      <ul class="collapsible" data-collapsible="accordion">
+        <li class="">
+          <div class="collapsible-header">Levels<span class="secondary-content"><i
+            style="color: orange; margin-right: 0;"
+            class="glyphicon glyphicon-chevron-down"></i></span>
+          </div>
+          <div class="collapsible-body levels" style="display: none;">
+            <ul>
+              <li><b>Level 1:</b> FDA-approved biomarjer and drug in this indication.</li>
+              <li><b>Level 2A:</b> Standard-of-care biomarker and drug in this indication but not FDA-approved.</li>
+              <li><b>Level 2B:</b> FDA-approved biomarker and drug in another indication, but not FDA or NCCN
+                compendium-listed for this indication.
+              </li>
+              <li><b>Level 3A:</b> Clinical evidence links biomarker to drug response in this indication but neither
+                biomarker or drug are FDA-approved or NCCN compendium-listed.
+              </li>
+              <li><b>Level 3B:</b> Clinical evidence links biomarker to drug response in another indication but neither
+                biomarker or drug are FDA-approved or NCCN compendium-listed.
+              </li>
+            </ul>
+          </div>
+        </li>
+        <li class="">
+          <div class="collapsible-header">Powered by OncoKB(Beta)<span class="secondary-content"><i
+            style="color: orange; margin-right: 0;" class="glyphicon glyphicon-chevron-down"></i></span></div>
+          <div class="collapsible-body" style="display: none;"><p>OncoKB is under development. To report errors or
+            missing annotation about this variant, please send us feedback. For general feedback, please send an email
+            to oncokb@cbio.mskcc.org</p></div>
+        </li>
+      </ul>
+    </div>
+    <div class="item footer">
+      <img src="images/oncokb.png" class="oncokb-logo">
+      <span class="pull-right feedback"><button class="btn btn-default btn-xs"><i>Feedback</i></button></span></div>
+  </div>
+</script>
+
+<script type="text/template" id="oncokb-card-treatment-row">
+  <tr>
+    <td><i class="level-icon level-{{level}}"></i></td>
+    <td>{{treatment}}</td>
+    <td>{{cancerType}}</td>
+    <td><i class="fa fa-book" qtip-content="{{citations}}"></i></td>
+  </tr>
+</script>
