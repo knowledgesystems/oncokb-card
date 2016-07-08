@@ -103,6 +103,13 @@ var OncoKBCard = (function(_, $) {
     });
 
     $('#main').html(cardMainTemplate);
+    $('.collapsible').collapsible();
+    $('ul.tabs').tabs();
+
+    $('.oncokb-card .collapsible').on('click.collapse', '> li > .collapsible-header', function() {
+        $(this).find('i.glyphicon-chevron-down').toggle();
+        $(this).find('i.glyphicon-chevron-up').toggle();
+    })
   }
 
   return {
