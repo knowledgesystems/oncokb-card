@@ -13,7 +13,7 @@
               </a>
             </li>
             <li class="tab col s6">
-              <a class="mutation-effect">
+              <a class="mutation-effect" href="#mutation-effect">
                 <span class="title">Biological Effect</span>
                 <span class="title-content">{{mutationEffect}} <i class="fa fa-book"
                                                                   qtip-content="{{mutationEffectCitations}}"></i></span>
@@ -22,13 +22,14 @@
             <div class="indicator"></div>
           </ul>
         </div>
-        <div id="oncogenic" class="col s12 tabsContent oncogenic" style="display: block;margin: 10px 10px 0 10px;">
+        <div id="oncogenic" class="col s12 tabsContent oncogenic" style="margin: 10px 10px 0 10px;">
           <p>{{clinicalSummary}}</p>
           <div>
             <table class="bordered table">
               <thead>
               <tr>
                 <th>Level</th>
+                <th>Alteration(s)</th>
                 <th>Drug(s)</th>
                 <th>Level-associated<br/>cancer type(s)</th>
                 <th>Citation(s)</th>
@@ -41,7 +42,7 @@
           </div>
         </div>
         <div id="mutation-effect" class="col s12 tabsContent mutation-effect"
-             style="display: none;margin: 10px 10px 0 10px;">
+             style="margin: 10px 10px 0 10px;">
           {{biologicalSummary}}
         </div>
       </div>
@@ -78,16 +79,6 @@
               </ul>
             </div>
           </li>
-          <li class="">
-            <div class="collapsible-header">Powered by OncoKB(Beta)
-              <span class="secondary-content">
-                <i class="glyphicon glyphicon-chevron-down"></i>
-                <i class="glyphicon glyphicon-chevron-up" style="display: none"></i>
-              </span></div>
-            <div class="collapsible-body" style="display: none;"><p>OncoKB is under development. To report errors or
-              missing annotation about this variant, please send us feedback. For general feedback, please send an email
-              to oncokb@cbio.mskcc.org</p></div>
-          </li>
         </ul>
       </div>
       <div class="item footer">
@@ -100,6 +91,7 @@
 <script type="text/template" id="oncokb-card-treatment-row">
   <tr>
     <td><i class="level-icon level-{{level}}"></i></td>
+    <td>{{variant}}</td>
     <td>{{treatment}}</td>
     <td>{{cancerType}}</td>
     <td><i class="fa fa-book" qtip-content="{{citations}}"></i></td>

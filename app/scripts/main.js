@@ -1,56 +1,70 @@
 var OncoKBCard = (function(_, $) {
   var templateCache = {};
   var meta = {
-    title: 'BRAF V600E in Melanoma',
+    title: 'BRAF V600G in Melanoma',
     oncogenicity: 'Oncogenic',
     oncogenicityCitations: '1,2,4,5',
     mutationEffect: 'Likely Switch-of-function',
     mutationEffectCitations: '',
-    clinicalSummary: 'BRAF encodes an intracellular kinase and component of the pro-oncogenic MAP-kinase signaling pathway. Mutations of BRAF are found in various cancers, including melanoma and lung cancer. The BRAF V600E mutation is known to be oncogenic.',
+    clinicalSummary: 'BRAF V600G has not been functionally or clinically validated. However, BRAF V600E/K [where E/K is the highest level] is known to be oncogenic [or likely oncogenic], and therefore this alteration is considered likely oncogenic. While the therapeutic implications are unknown for BRAF V600G, there are therapeutic implications for BRAF V600E/K in melanoma [where melanoma is the highest level].',
     biologicalSummary: 'There is level 1 evidence that V600E or V600K mutations in BRAF is associated with response to FDA-approved combination of RAF-inhibitor dabrafenib and trametinib in melanoma (PMID: 25287827, 25399551, 25265492), as well as dabrafenib monotherapy in non-small cell lung cancer (Planchard, D et al. J Clin. Oncol. abstract 8009; 2013).',
     treatments: [
       {
         level: '1',
+        variant: 'V600E',
         treatment: 'Trametinib',
-        cancerType: 'Dabrafenib',
+        cancerType: 'Melanoma',
         citations: '1,2,4,5'
       },
       {
-        level: '2A',
+        level: '1',
+        variant: 'V600K',
         treatment: 'Dabrafenib',
         cancerType: 'Melanoma',
         citations: '1,2,4,5'
       },
       {
-        level: '2B',
+        level: '1',
+        variant: 'V600E/K',
         treatment: 'Trametinib + Dabrafenib',
         cancerType: 'Melanoma',
         citations: '1,2,4,5'
       },
       {
-        level: '3A',
-        treatment: 'Vemurafenib',
-        cancerType: 'Melanoma',
+        level: '2A',
+        variant: 'V600E/K',
+        treatment: 'Trametinib + Dabrafenib',
+        cancerType: 'Melanoma/Non-Small Cell Lung Cancer',
         citations: '1,2,4,5'
       },
-      {
-        level: '3B',
-        treatment: 'Vemurafenib+Cobimetinib',
-        cancerType: 'Melanoma',
-        citations: ''
-      },
-      {
-        level: '4',
-        treatment: 'Cobimetinib',
-        cancerType: 'Melanoma',
-        citations: ''
-      },
-      {
-        level: 'R1',
-        treatment: 'Cobimetinib',
-        cancerType: 'Melanoma',
-        citations: '1,2,4,5'
-      },
+      // {
+      //   level: '3A',
+      //   variant: 'V600E',
+      //   treatment: 'Vemurafenib',
+      //   cancerType: 'Melanoma',
+      //   citations: '1,2,4,5'
+      // },
+      // {
+      //   level: '3B',
+      //   variant: 'V600E/K',
+      //   treatment: 'Vemurafenib+Cobimetinib',
+      //   cancerType: 'Melanoma',
+      //   citations: ''
+      // },
+      // {
+      //   level: '4',
+      //   variant: 'V600E',
+      //   treatment: 'Cobimetinib',
+      //   cancerType: 'Melanoma',
+      //   citations: ''
+      // },
+      // {
+      //   level: 'R1',
+      //   variant: 'V600E',
+      //   treatment: 'Cobimetinib',
+      //   cancerType: 'Melanoma',
+      //   citations: '1,2,4,5'
+      // },
     ]
   };
 
@@ -103,18 +117,18 @@ var OncoKBCard = (function(_, $) {
     });
 
     $('#main').html(cardMainTemplate);
-    $('.collapsible').collapsible();
-    $('ul.tabs').tabs();
+    $('.oncokb-card .collapsible').collapsible();
+    $('.oncokb-card ul.tabs').tabs();
 
     $('.oncokb-card .collapsible').on('click.collapse', '> li > .collapsible-header', function() {
-        $(this).find('i.glyphicon-chevron-down').toggle();
-        $(this).find('i.glyphicon-chevron-up').toggle();
-    })
+      $(this).find('i.glyphicon-chevron-down').toggle();
+      $(this).find('i.glyphicon-chevron-up').toggle();
+    });
 
-    $('i.fa-book').each(function() {
+    $('.oncokb-card i.fa-book').each(function() {
       var content = $(this).attr('qtip-content');
 
-      if(content) {
+      if (content) {
         $(this).qtip({
           content: content,
           hide: {
@@ -138,7 +152,7 @@ var OncoKBCard = (function(_, $) {
             viewport: $(window)
           }
         });
-      }else {
+      } else {
         $(this).remove();
       }
     })
