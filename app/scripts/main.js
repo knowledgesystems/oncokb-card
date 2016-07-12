@@ -5,7 +5,7 @@ var OncoKBCard = (function(_, $) {
     oncogenicity: 'Oncogenic',
     oncogenicityCitations: '1,2,4,5',
     mutationEffect: 'Likely Switch-of-function',
-    mutationEffectCitations: '1,2,4,5',
+    mutationEffectCitations: '',
     clinicalSummary: 'BRAF encodes an intracellular kinase and component of the pro-oncogenic MAP-kinase signaling pathway. Mutations of BRAF are found in various cancers, including melanoma and lung cancer. The BRAF V600E mutation is known to be oncogenic.',
     biologicalSummary: 'There is level 1 evidence that V600E or V600K mutations in BRAF is associated with response to FDA-approved combination of RAF-inhibitor dabrafenib and trametinib in melanoma (PMID: 25287827, 25399551, 25265492), as well as dabrafenib monotherapy in non-small cell lung cancer (Planchard, D et al. J Clin. Oncol. abstract 8009; 2013).',
     treatments: [
@@ -37,13 +37,13 @@ var OncoKBCard = (function(_, $) {
         level: '3B',
         treatment: 'Vemurafenib+Cobimetinib',
         cancerType: 'Melanoma',
-        citations: '1,2,4,5'
+        citations: ''
       },
       {
         level: '4',
         treatment: 'Cobimetinib',
         cancerType: 'Melanoma',
-        citations: '1,2,4,5'
+        citations: ''
       },
       {
         level: 'R1',
@@ -109,6 +109,38 @@ var OncoKBCard = (function(_, $) {
     $('.oncokb-card .collapsible').on('click.collapse', '> li > .collapsible-header', function() {
         $(this).find('i.glyphicon-chevron-down').toggle();
         $(this).find('i.glyphicon-chevron-up').toggle();
+    })
+
+    $('i.fa-book').each(function() {
+      var content = $(this).attr('qtip-content');
+
+      if(content) {
+        $(this).qtip({
+          content: content,
+          hide: {
+            fixed: true,
+            delay: 100,
+            event: "mouseleave"
+          },
+          style: {
+            classes: 'qtip-light qtip-rounded qtip-shadow',
+            tip: true
+          },
+          show: {
+            event: "mouseover",
+            solo: true,
+            delay: 0,
+            ready: true
+          },
+          position: {
+            my: 'center left',
+            at: 'center right',
+            viewport: $(window)
+          }
+        });
+      }else {
+        $(this).remove();
+      }
     })
   }
 
