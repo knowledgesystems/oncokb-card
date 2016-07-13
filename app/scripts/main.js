@@ -98,8 +98,12 @@ var OncoKBCard = (function(_, $) {
     return templateFn;
   }
 
-  function init() {
+  function init(data, target) {
     var treamtmentTemplates = [];
+
+    if(data) {
+      meta = data;
+    }
     _.each(meta.treatments, function(treatment) {
       var treatmentFn = getTemplateFn("oncokb-card-treatment-row");
       treamtmentTemplates.push(treatmentFn(treatment));
@@ -116,16 +120,16 @@ var OncoKBCard = (function(_, $) {
       treatmentRows: treamtmentTemplates.join('')
     });
 
-    $('#main').html(cardMainTemplate);
-    $('.oncokb-card .collapsible').collapsible();
-    $('.oncokb-card ul.tabs').tabs();
+    $(target).html(cardMainTemplate);
+    $(target + ' .oncokb-card .collapsible').collapsible();
+    $(target + ' .oncokb-card ul.tabs').tabs();
 
-    $('.oncokb-card .collapsible').on('click.collapse', '> li > .collapsible-header', function() {
+    $(target + ' .oncokb-card .collapsible').on('click.collapse', '> li > .collapsible-header', function() {
       $(this).find('i.glyphicon-chevron-down').toggle();
       $(this).find('i.glyphicon-chevron-up').toggle();
     });
 
-    $('.oncokb-card i.fa-book').each(function() {
+    $(target + ' .oncokb-card i.fa-book').each(function() {
       var content = $(this).attr('qtip-content');
 
       if (content) {
@@ -133,7 +137,7 @@ var OncoKBCard = (function(_, $) {
           content: content,
           hide: {
             fixed: true,
-            delay: 100,
+            delay: 400,
             event: "mouseleave"
           },
           style: {
@@ -142,9 +146,8 @@ var OncoKBCard = (function(_, $) {
           },
           show: {
             event: "mouseover",
-            solo: true,
             delay: 0,
-            ready: true
+            ready: false
           },
           position: {
             my: 'center left',
