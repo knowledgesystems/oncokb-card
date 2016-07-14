@@ -1,12 +1,17 @@
 .level-icon {
-  width: 15px;
-  height: 15px;
-  line-height: 15px;
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
   background-image: url("../images/levels_colors.png");
   -webkit-background-size: 200px;
   background-size: 200px;
   display: inline-block !important;
   margin-top: 3px;
+}
+li > .level-icon {
+  float: left;
+  margin-top: 0;
+  margin-right: 5px
 }
 .level-1 {
   background-position: -15px -21px;

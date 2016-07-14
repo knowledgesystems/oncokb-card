@@ -5,14 +5,14 @@
         <div class="col s12 tip-header">{{title}}</div>
         <div class="col s12">
           <ul class="tabs" tabs="">
-            <li class="tab col s6">
-              <a class="oncogenic" href="#oncogenic">
+            <li class="tab col s6 enable-hover">
+              <a class="oncogenicity" href="#oncogenicity">
                 <span class="title">clinical implications</span>
                 <span class="title-content">{{oncogenicity}} <i class="fa fa-book"
                                                                 qtip-content="{{oncogenicityCitations}}"></i></span>
               </a>
             </li>
-            <li class="tab col s6">
+            <li class="tab col s6 enable-hover">
               <a class="mutation-effect" href="#mutation-effect">
                 <span class="title">Biological Effect</span>
                 <span class="title-content">{{mutationEffect}} <i class="fa fa-book"
@@ -22,7 +22,7 @@
             <div class="indicator"></div>
           </ul>
         </div>
-        <div id="oncogenic" class="col s12 tabsContent oncogenic" style="margin: 10px 10px 0 10px;">
+        <div id="oncogenicity" class="col s12 tabsContent oncogenicity" style="margin: 10px 10px 0 10px;">
           <p>{{clinicalSummary}}</p>
           <div>
             <table class="bordered table">
@@ -64,18 +64,7 @@
             </div>
             <div class="collapsible-body levels" style="display: none;">
               <ul>
-                <li><b>Level 1:</b> FDA-approved biomarjer and drug in this indication.</li>
-                <li><b>Level 2A:</b> Standard-of-care biomarker and drug in this indication but not FDA-approved.</li>
-                <li><b>Level 2B:</b> FDA-approved biomarker and drug in another indication, but not FDA or NCCN
-                  compendium-listed for this indication.
-                </li>
-                <li><b>Level 3A:</b> Clinical evidence links biomarker to drug response in this indication but neither
-                  biomarker or drug are FDA-approved or NCCN compendium-listed.
-                </li>
-                <li><b>Level 3B:</b> Clinical evidence links biomarker to drug response in another indication but
-                  neither
-                  biomarker or drug are FDA-approved or NCCN compendium-listed.
-                </li>
+                {{levelRows}}
               </ul>
             </div>
           </li>
@@ -90,10 +79,16 @@
 
 <script type="text/template" id="oncokb-card-treatment-row">
   <tr>
-    <td><i class="level-icon level-{{level}}"></i></td>
+    <td><i class="level-icon level-{{level}}" qtip-content="{{levelDes}}" position-my="bottom center"
+           position-at="top center"></i></td>
     <td>{{variant}}</td>
     <td>{{treatment}}</td>
     <td>{{cancerType}}</td>
     <td><i class="fa fa-book" qtip-content="{{citations}}"></i></td>
   </tr>
+</script>
+
+<script type="text/template" id="oncokb-card-level-list-item">
+  <li><i class="level-icon level-{{level}}"></i><span>{{levelDes}}</span>
+  </li>
 </script>
