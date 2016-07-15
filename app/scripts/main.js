@@ -148,7 +148,10 @@ var OncoKBCard = (function(_, $) {
       var content = element.attr('qtip-content');
 
       if (content) {
-        $(this).qtip({
+        if(element.hasClass('fa-book')) {
+          content = '<img src="images/loader.gif" />';
+        }
+        element.qtip({
           content: content,
           hide: {
             fixed: true,
@@ -168,6 +171,33 @@ var OncoKBCard = (function(_, $) {
             my: element.attr('position-my') || 'center left',
             at: element.attr('position-at') || 'center right',
             viewport: $(window)
+          },
+          events: {
+            render: function(event, api) {
+              if(element.hasClass('fa-book')) {
+                $.get("http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&id=" + element.attr('qtip-content')).then(function(articles) {
+                  var articlesData = articles.result;
+                  var content = '';
+                  if (articlesData !== undefined && articlesData.uids.length > 0) {
+                    content = '<ul class="list-group" style="margin-bottom: 5px">';
+
+                    articlesData.uids.forEach(function(uid) {
+                      var articleContent = articlesData[uid];
+                      content += '<li class="list-group-item" style="width: 100%"><a href="http://www.ncbi.nlm.nih.gov/pubmed/' + uid + '" target="_blank"><b>' + articleContent.title + '</b></a>';
+                      if (articleContent.authors !== undefined) {
+                        content += '<br/><span>' + articleContent.authors[0].name + ' et al. ' + articleContent.source + '. ' + (new Date(articleContent.pubdate)).getFullYear() + ' PMID: '  + articleContent.uid + '</span></li>';
+                      }
+                    });
+                    content += "</ul>";
+                  }
+                  api.set({
+                    'content.text': content
+                  });
+
+                  api.reposition(event, false);
+                });
+              }
+            }
           }
         });
       } else {
