@@ -107,6 +107,9 @@ var OncoKBCard = (function(_, $) {
       levelRows: levelTemplates.join('')
     });
 
+    //Have to cache template in here. After Ajax call, we lost the template
+    var refsItem = getTemplateFn("oncokb-card-refs-item");
+
     $(target).html(cardMainTemplate);
 
     //Remove table element if there is no treatment available
@@ -146,20 +149,21 @@ var OncoKBCard = (function(_, $) {
     $(target + ' .oncokb-card [qtip-content]').each(function() {
       var element = $(this);
       var content = element.attr('qtip-content');
+      var classes = 'qtip-light qtip-rounded qtip-shadow';
 
       if (content) {
         if(element.hasClass('fa-book')) {
           content = '<img src="images/loader.gif" />';
+          classes += ' qtip-oncokb-card-refs';
+        }
+        if(element.hasClass('level-icon')) {
+          classes += ' qtip-oncokb-card-levels';
         }
         element.qtip({
           content: content,
-          hide: {
-            fixed: true,
-            delay: 400,
-            event: "mouseleave"
-          },
+          hide: false,
           style: {
-            classes: 'qtip-light qtip-rounded qtip-shadow oncokb-card-refs',
+            classes: classes,
             tip: true
           },
           show: {
@@ -179,22 +183,26 @@ var OncoKBCard = (function(_, $) {
                   var articlesData = articles.result;
                   var content = '';
                   if (articlesData !== undefined && articlesData.uids.length > 0) {
-                    content = '<ul class="list-group" style="margin-bottom: 5px">';
+                    var refsTemplates = ['<ul class="list-group" style="margin-bottom: 0">'];
 
-                    articlesData.uids.forEach(function(uid) {
+                    _.each(articlesData.uids, function(uid) {
+                      var refsFn = getTemplateFn("oncokb-card-refs-item");
                       var articleContent = articlesData[uid];
-                      content += '<li class="list-group-item" style="width: 100%"><a href="http://www.ncbi.nlm.nih.gov/pubmed/' + uid + '" target="_blank"><b>' + articleContent.title + '</b></a>';
-                      if (articleContent.authors !== undefined) {
-                        content += '<br/><span>' + articleContent.authors[0].name + ' et al. ' + articleContent.source + '. ' + (new Date(articleContent.pubdate)).getFullYear() + ' PMID: '  + articleContent.uid + '</span></li>';
-                      }
+                      refsTemplates.push(refsFn({
+                        pmid: articleContent.uid,
+                        title: articleContent.title,
+                        author: (_.isArray(articleContent.authors) && articleContent.authors.length > 0) ? (articleContent.authors[0].name + ' et al.') : 'Unknown',
+                        source: articleContent.source,
+                        date: (new Date(articleContent.pubdate)).getFullYear()
+                      }));
                     });
-                    content += "</ul>";
+                    refsTemplates.push('</ul>');
                   }
                   api.set({
-                    'content.text': content
+                    'content.text': refsTemplates.join('')
                   });
 
-                  api.reposition(event, false);
+                  api.reposition(null, false);
                 });
               }
             }

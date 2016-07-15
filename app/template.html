@@ -72,7 +72,8 @@
       </div>
       <div class="item footer">
         <img src="images/oncokb.png" class="oncokb-logo">
-        <span class="pull-right feedback"><button class="btn btn-default btn-xs oncokb-card-feedback-btn"><i>Feedback</i></button></span></div>
+        <span class="pull-right feedback"><button
+          class="btn btn-default btn-xs oncokb-card-feedback-btn"><i>Feedback</i></button></span></div>
     </div>
   </div>
 </script>
@@ -90,5 +91,12 @@
 
 <script type="text/template" id="oncokb-card-level-list-item">
   <li><i class="level-icon level-{{level}}"></i><span>{{levelDes}}</span>
+  </li>
+</script>
+
+<script type="text/template" id="oncokb-card-refs-item">
+  <li class="list-group-item" style="width: 100%">
+    <a href="http://www.ncbi.nlm.nih.gov/pubmed/{{pmid}}" target="_blank"><b>{{title}}</b></a><br/>
+    <div style="width: 100%">{{author}} {{source}}. {{date}} <span style="float: right">PMID: {{pmid}}</span></div>
   </li>
 </script>
