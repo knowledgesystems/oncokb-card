@@ -1,5 +1,6 @@
 var OncoKBCard = (function(_, $) {
   var templateCache = {};
+  var levels = ['1', '2A', '2B', '3A', '3B', '4', 'R1'];
   var levelDes = {
     '1': '<b>FDA-recognized</b> biomarker predictive of response to an <b>FDA-approved</b> drug <b>in this indication</b>',
     '2A': '<b>Standard of care</b> biomarker predictive of response to an <b>FDA-approved</b> drug <b>in this indication</b>',
@@ -40,6 +41,35 @@ var OncoKBCard = (function(_, $) {
     return templateFn;
   }
 
+  function concatAlterations(alterations) {
+    var positions = {};
+    var regular = [];
+    var regExp = new RegExp("([A-Z])([0-9]+)([^0-9/]+)");
+
+    _.each(alterations, function(alteration) {
+      var result = regExp.exec(alteration);
+      if(result.length === 4) {
+        if(!positions.hasOwnProperty(result[2])) {
+          positions[result[2]] = {};
+        }
+        if(!positions[result[2]].hasOwnProperty(result[1])) {
+          //Avoid duplication, use object instead of array
+          positions[result[2]][result[1]] = {};
+        }
+        positions[result[2]][result[1]][result[3]] = 1;
+      }else {
+        regular.push(alteration);
+      }
+    })
+
+    _.each(_.keys(positions).map(function(e){return Number(e)}).sort(), function(position) {
+      _.each(_.keys(positions[position]).sort(), function(aa) {
+        regular.push(aa + position + _.keys(positions[position][aa]).sort().join('/'));
+      });
+    })
+    return regular.join(', ');
+  }
+
   function init(data, target) {
     var treatmentTemplates = [];
     var levelTemplates = [];
@@ -50,14 +80,17 @@ var OncoKBCard = (function(_, $) {
       if(treatment.level){
         treatment.levelDes = levelDes[treatment.level];
       }
+      if(_.isArray(treatment.variant)) {
+        treatment.variant = concatAlterations(treatment.variant);
+      }
       treatmentTemplates.push(treatmentFn(treatment));
     });
 
-    _.each(levelDes, function(levelDes, level) {
+    _.each(levels, function(level) {
       var levelFn = getTemplateFn("oncokb-card-level-list-item");
       levelTemplates.push(levelFn({
         level: level,
-        levelDes: levelDes
+        levelDes: levelDes[level]
       }));
     });
 
@@ -78,7 +111,7 @@ var OncoKBCard = (function(_, $) {
 
     //Remove table element if there is no treatment available
     if (!_.isArray(data.treatments) || data.treatments.length === 0) {
-      $(target + ' .oncogenic table').remove();
+      $(target + ' .oncogenicity table').remove();
     }
 
     if(!data.oncogenicity) {
@@ -94,7 +127,7 @@ var OncoKBCard = (function(_, $) {
     if(!data.biologicalSummary) {
       $(target + ' #mutation-effect').remove();
       $(target + ' a.mutation-effect').removeAttr('href');
-      $(target + ' a.oncogenic').removeAttr('href');
+      $(target + ' a.oncogenicity').removeAttr('href');
       $(target + ' .enable-hover').each(function() {
         $(this).removeClass('enable-hover');
       });
@@ -123,7 +156,7 @@ var OncoKBCard = (function(_, $) {
             event: "mouseleave"
           },
           style: {
-            classes: 'qtip-light qtip-rounded qtip-shadow',
+            classes: 'qtip-light qtip-rounded qtip-shadow oncokb-card-refs',
             tip: true
           },
           show: {
