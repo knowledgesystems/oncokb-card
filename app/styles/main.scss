@@ -121,14 +121,13 @@ $orange: #ffa500;
     height: 53px;
   }
 
-  .enable-hover:hover {
+  .enable-hover>a:hover {
     opacity: 0.7;
     cursor: pointer;
   }
 
-  .tabs .indicator {
-    background-color: $orange;
-    height: 3px;
+  li.tab.enable-hover.active {
+    border-bottom: 3px solid $orange;
   }
 
   .thead {

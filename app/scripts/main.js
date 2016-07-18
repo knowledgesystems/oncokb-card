@@ -134,11 +134,7 @@ var OncoKBCard = (function(_, $) {
       $(target + ' .enable-hover').each(function() {
         $(this).removeClass('enable-hover');
       });
-    }else {
-      $(target + ' .oncokb-card ul.tabs').tabs();
     }
-
-    $(target + ' .oncokb-card .collapsible').collapsible();
 
     $(target + ' .oncokb-card .collapsible').on('click.collapse', '> li > .collapsible-header', function() {
       $(this).find('i.glyphicon-chevron-down').toggle();
@@ -161,7 +157,11 @@ var OncoKBCard = (function(_, $) {
         }
         element.qtip({
           content: content,
-          hide: false,
+          hide: {
+            fixed: true,
+            delay: 400,
+            event: "mouseleave"
+          },
           style: {
             classes: classes,
             tip: true
