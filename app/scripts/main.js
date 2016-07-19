@@ -129,7 +129,7 @@ var OncoKBCard = (function(_, $) {
     }
 
     if(!data.biologicalSummary) {
-      $(target + ' #mutation-effect').remove();
+      $(target + ' .tab-pane.mutation-effect').remove();
       $(target + ' a.mutation-effect').removeAttr('href');
       $(target + ' a.oncogenicity').removeAttr('href');
       $(target + ' .enable-hover').each(function() {
