@@ -5,26 +5,27 @@
         <div class="col s12 tip-header">{{title}}</div>
         <div class="col s12">
           <ul class="tabs" tabs="">
-            <li class="tab col s6 enable-hover active">
+            <li class="tab col s6 enable-hover">
               <a class="oncogenicity" data-toggle="tab" data-target=".oncogenicity">
                 <span class="title">clinical implications</span>
-                <span class="title-content">{{oncogenicity}} <i class="fa fa-book"
-                                                                qtip-content="{{oncogenicityCitations}}"></i></span>
+                <span class="title-content">{{oncogenicity}}</span>
               </a>
             </li>
             <li class="tab col s6 enable-hover">
               <a class="mutation-effect" data-toggle="tab" data-target=".mutation-effect">
                 <span class="title">Biological Effect</span>
-                <span class="title-content">{{mutationEffect}} <i class="fa fa-book"
-                                                                  qtip-content="{{mutationEffectCitations}}"></i></span>
+                <span class="title-content">{{mutationEffect}}</span>
               </a>
             </li>
             <div class="indicator"></div>
           </ul>
         </div>
         <div class="tab-content">
-          <div role="tabpanel" class="col s12 tab-pane active oncogenicity" style="margin: 10px 10px 0 10px;">
+          <div role="tabpanel" class="col s12 tab-pane oncogenicity" style="margin: 10px 10px 0 10px;">
             <p>{{clinicalSummary}}</p>
+            <div class="refs">
+              <img src="images/loader.gif">
+            </div>
             <div>
               <table class="bordered table">
                 <thead>
@@ -44,7 +45,10 @@
           </div>
           <div role="tabpanel" class="col s12 tab-pane mutation-effect"
                style="margin: 10px 10px 0 10px;">
-            {{biologicalSummary}}
+            <p>{{biologicalSummary}}</p>
+            <div class="refs">
+              <img src="images/loader.gif">
+            </div>
           </div>
         </div>
       </div>
@@ -84,12 +88,13 @@
 
 <script type="text/template" id="oncokb-card-treatment-row">
   <tr>
-    <td><i class="level-icon level-{{level}}" qtip-content="{{levelDes}}" position-my="bottom center"
-           position-at="top center"></i></td>
+    <td><i class="level-icon level-{{level}}" qtip-content="{{levelDes}}" position-my="top center"
+           position-at="bottom center"></i></td>
     <td>{{variant}}</td>
     <td>{{treatment}}</td>
     <td>{{cancerType}}</td>
-    <td><i class="fa fa-book" qtip-content="{{citations}}"></i></td>
+    <td><i class="fa fa-book" qtip-content="{{citations}}" position-my="top right"
+           position-at="bottom left"></i></td>
   </tr>
 </script>
 

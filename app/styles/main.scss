@@ -1,5 +1,5 @@
 $icon-font-path: "../bower_components/bootstrap-sass/assets/fonts/bootstrap/";
-$fa-font-path:"../bower_components/font-awesome/fonts/";
+$fa-font-path: "../bower_components/font-awesome/fonts/";
 
 // bower:scss
 @import "bower_components/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
@@ -31,6 +31,45 @@ $orange: #ffa500;
   .item:not(:last-child) {
     margin-bottom: 10px;
   }
+
+  .refs {
+    img {
+      margin: auto;
+      display: block;
+      margin-top: 10px;
+    }
+    ul.list-group {
+      max-height: 85px;
+      overflow-y: auto;
+    }
+  }
+  .mutation-effect .refs {
+    ul.list-group {
+      max-height: 200px;
+    }
+  }
+
+  .list-group-item {
+    border: 0;
+    padding: 5px 0;
+    line-height: 16px;
+    font-size: 13px;
+    a {
+      color: $dark-blue;
+    }
+  }
+  .list-group-item:not(:first-child) {
+    border-top: 1px solid #d0d0d0;
+  }
+  .list-group-item:last-child {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  .list-group-item:first-child {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+
   .oncogenicity {
     .title {
       line-height: 25px;
@@ -123,7 +162,7 @@ $orange: #ffa500;
     height: 53px;
   }
 
-  .enable-hover>a:hover {
+  .enable-hover > a:hover {
     opacity: 0.7;
     cursor: pointer;
   }
@@ -175,11 +214,13 @@ $orange: #ffa500;
   }
 
   .tip-header {
-    line-height: 50px;
-    font-size: 17px;
+    line-height: 25px;
+    font-size: 22px;
     background-color: $dark-blue;
     color: #fff;
-    padding-left: 10px;
+    //padding-left: 10px;
+    text-align: center;
+    padding: 10px;
   }
 
   .grey-out {
@@ -190,21 +231,25 @@ $orange: #ffa500;
 .qtip.qtip-oncokb-card-refs {
   color: black;
   max-width: 400px;
-  border:0;
-  -webkit-border-radius:0;
-  -moz-border-radius:0;
-  border-radius:0;
+  border: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
   font-size: 11px;
   * {
     box-sizing: border-box;
   }
-  a {
-    color: $dark-blue;
+  ul.list-group {
+    max-height: 200px;
+    overflow-y: auto;
   }
   .list-group-item {
     border: 0;
     padding: 5px;
     line-height: 16px;
+    a {
+      color: $dark-blue;
+    }
   }
   .list-group-item:not(:first-child) {
     border-top: 1px solid #d0d0d0;
@@ -224,5 +269,8 @@ $orange: #ffa500;
   max-width: 500px;
   .qtip-content {
     padding: 0;
+  }
+  .oncogenic-loading {
+    margin: 5px 9px;
   }
 }

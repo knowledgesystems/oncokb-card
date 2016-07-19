@@ -10,6 +10,10 @@ var OncoKBCard = (function(_, $) {
     '4': '<b>Compelling biological evidence</b> supports the biomarker as being predictive of response to a drug but neither biomarker and drug are standard of care',
     'R1': '<b>Standard of care</b> biomarker predictive of <b>resistance</b> to an <b>FDA-approved</b> drug <b>in this indication</b>'
   };
+  var status = {
+    mutationRefInitialized: false,
+    oncogenicityInitialized: false
+  };
 
   /**
    * Compiles the template for the given template id
@@ -19,7 +23,7 @@ var OncoKBCard = (function(_, $) {
    * @returns function    compiled template function
    */
   function compileTemplate(templateId) {
-    return _.template($("#" + templateId).html());
+    return _.template($('#' + templateId).html());
   }
 
   /**
@@ -44,25 +48,27 @@ var OncoKBCard = (function(_, $) {
   function concatAlterations(alterations) {
     var positions = {};
     var regular = [];
-    var regExp = new RegExp("([A-Z])([0-9]+)([^0-9/]+)");
+    var regExp = new RegExp('([A-Z])([0-9]+)([^0-9/]+)');
 
     _.each(alterations, function(alteration) {
       var result = regExp.exec(alteration);
-      if(_.isArray(result) && result.length === 4) {
-        if(!positions.hasOwnProperty(result[2])) {
+      if (_.isArray(result) && result.length === 4) {
+        if (!positions.hasOwnProperty(result[2])) {
           positions[result[2]] = {};
         }
-        if(!positions[result[2]].hasOwnProperty(result[1])) {
+        if (!positions[result[2]].hasOwnProperty(result[1])) {
           //Avoid duplication, use object instead of array
           positions[result[2]][result[1]] = {};
         }
         positions[result[2]][result[1]][result[3]] = 1;
-      }else {
+      } else {
         regular.push(alteration);
       }
     })
 
-    _.each(_.keys(positions).map(function(e){return Number(e)}).sort(), function(position) {
+    _.each(_.keys(positions).map(function(e) {
+      return Number(e)
+    }).sort(), function(position) {
       _.each(_.keys(positions[position]).sort(), function(aa) {
         regular.push(aa + position + _.keys(positions[position][aa]).sort().join('/'));
       });
@@ -75,26 +81,26 @@ var OncoKBCard = (function(_, $) {
     var levelTemplates = [];
 
     _.each(data.treatments, function(treatment) {
-      var treatmentFn = getTemplateFn("oncokb-card-treatment-row");
+      var treatmentFn = getTemplateFn('oncokb-card-treatment-row');
 
-      if(treatment.level){
+      if (treatment.level) {
         treatment.levelDes = levelDes[treatment.level];
       }
-      if(_.isArray(treatment.variant)) {
+      if (_.isArray(treatment.variant)) {
         treatment.variant = concatAlterations(treatment.variant);
       }
       treatmentTemplates.push(treatmentFn(treatment));
     });
 
     _.each(levels, function(level) {
-      var levelFn = getTemplateFn("oncokb-card-level-list-item");
+      var levelFn = getTemplateFn('oncokb-card-level-list-item');
       levelTemplates.push(levelFn({
         level: level,
         levelDes: levelDes[level]
       }));
     });
 
-    var cardMainTemplateFn = getTemplateFn("oncokb-card");
+    var cardMainTemplateFn = getTemplateFn('oncokb-card');
     var cardMainTemplate = cardMainTemplateFn({
       title: data.title,
       gene: data.gene,
@@ -108,30 +114,30 @@ var OncoKBCard = (function(_, $) {
       levelRows: levelTemplates.join('')
     });
 
-    //Have to cache template in here. After Ajax call, we lost the template
-    var refsItem = getTemplateFn("oncokb-card-refs-item");
+    // Have to cache template in here. After Ajax call, we lost the template
+    var refsItem = getTemplateFn('oncokb-card-refs-item');
 
     $(target).html(cardMainTemplate);
 
-    //Remove table element if there is no treatment available
+    // Remove table element if there is no treatment available
     if (!_.isArray(data.treatments) || data.treatments.length === 0) {
       $(target + ' .oncogenicity table').remove();
     }
 
-    if(!data.oncogenicity) {
+    if (!data.oncogenicity) {
       $(target + ' a.oncogenicity').addClass('grey-out');
       $(target + ' a.oncogenicity').addClass('tab-disabled');
     }
 
-    if(!data.mutationEffect) {
+    if (!data.mutationEffect) {
       $(target + ' a.mutation-effect').addClass('grey-out');
-      $(target + ' a.mutation-effect').addClass('tab-disabled');
     }
 
-    if(!data.biologicalSummary) {
+    if (!(data.biologicalSummary || data.mutationEffectCitations)) {
       $(target + ' .tab-pane.mutation-effect').remove();
       $(target + ' a.mutation-effect').removeAttr('href');
       $(target + ' a.oncogenicity').removeAttr('href');
+      $(target + ' a.mutation-effect').addClass('tab-disabled');
       $(target + ' .enable-hover').each(function() {
         $(this).removeClass('enable-hover');
       });
@@ -146,14 +152,14 @@ var OncoKBCard = (function(_, $) {
     $(target + ' .oncokb-card [qtip-content]').each(function() {
       var element = $(this);
       var content = element.attr('qtip-content');
-      var classes = 'qtip-light qtip-rounded qtip-shadow';
+      var classes = 'qtip-light qtip-shadow';
 
       if (content) {
-        if(element.hasClass('fa-book')) {
+        if (element.hasClass('fa-book')) {
           content = '<img src="images/loader.gif" />';
           classes += ' qtip-oncokb-card-refs';
         }
-        if(element.hasClass('level-icon')) {
+        if (element.hasClass('level-icon')) {
           classes += ' qtip-oncokb-card-levels';
         }
         element.qtip({
@@ -168,7 +174,7 @@ var OncoKBCard = (function(_, $) {
             tip: true
           },
           show: {
-            event: "mouseover",
+            event: 'mouseover',
             delay: 0,
             ready: false
           },
@@ -179,32 +185,18 @@ var OncoKBCard = (function(_, $) {
           },
           events: {
             render: function(event, api) {
-              if(element.hasClass('fa-book')) {
-                $.get("http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&id=" + element.attr('qtip-content')).then(function(articles) {
-                  var articlesData = articles.result;
-                  var content = '';
-                  if (articlesData !== undefined && articlesData.uids.length > 0) {
-                    var refsTemplates = ['<ul class="list-group" style="margin-bottom: 0">'];
-
-                    _.each(articlesData.uids, function(uid) {
-                      var refsFn = getTemplateFn("oncokb-card-refs-item");
-                      var articleContent = articlesData[uid];
-                      refsTemplates.push(refsFn({
-                        pmid: articleContent.uid,
-                        title: articleContent.title,
-                        author: (_.isArray(articleContent.authors) && articleContent.authors.length > 0) ? (articleContent.authors[0].name + ' et al.') : 'Unknown',
-                        source: articleContent.source,
-                        date: (new Date(articleContent.pubdate)).getFullYear()
-                      }));
+              if (element.hasClass('fa-book')) {
+                $.when(getReferenceRows(element.attr('qtip-content')))
+                    .then(function(result) {
+                      api.set({
+                        'content.text': result
+                      });
+                      api.reposition(null, false);
+                    }, function() {
+                      api.set({
+                        'content.text': ''
+                      });
                     });
-                    refsTemplates.push('</ul>');
-                  }
-                  api.set({
-                    'content.text': refsTemplates.join('')
-                  });
-
-                  api.reposition(null, false);
-                });
               }
             }
           }
@@ -214,10 +206,105 @@ var OncoKBCard = (function(_, $) {
       }
     })
 
+    $(target + ' a[data-toggle="tab"]').on('shown.bs.tab', function() {
+      var isMutationEffect = $(this).hasClass('mutation-effect');
+      var isOncogenicity = $(this).hasClass('oncogenicity');
+      var classname = '';
+      var initialKey = '';
+      var citationKey = '';
+
+      if (isMutationEffect) {
+        classname = 'mutation-effect';
+        initialKey = 'mutationRefInitialized';
+        citationKey = 'mutationEffectCitations';
+      } else if (isOncogenicity) {
+        classname = 'oncogenicity';
+        initialKey = 'oncogenicityInitialized';
+        citationKey = 'oncogenicityCitations';
+      }
+
+      if (classname && !status[initialKey]) {
+        if (data[citationKey]) {
+          $.when(getReferenceRows(data[citationKey]))
+              .then(function(data) {
+                if (data) {
+                  $(target + ' .tab-pane.' + classname + ' .refs').html(data);
+                } else {
+                  $(target + ' .tab-pane.' + classname + ' .refs').remove();
+                }
+              }, function(error) {
+                $(target + ' .tab-pane.' + classname + ' .refs').remove();
+              }, function() {
+                status[initialKey] = true;
+              });
+
+        } else {
+          $(target + ' .tab-pane.' + classname + ' .refs').remove();
+        }
+      }
+    });
+
+    $(target + ' a.oncogenicity[data-toggle="tab"]').tab('show');
+  }
+
+  function getReferenceRows(refs) {
+    if (refs) {
+      var dfd = $.Deferred();
+      $.when(getReferenceInfoCall(refs))
+          .then(function(data) {
+            var refsTemplates = [];
+            var articlesData = data.result;
+
+            if (articlesData !== undefined && _.isArray(articlesData.uids) && articlesData.uids.length > 0) {
+              refsTemplates = ['<ul class="list-group" style="margin-bottom: 0">'];
+
+              _.each(articlesData.uids, function(uid) {
+                var refsFn = getTemplateFn('oncokb-card-refs-item');
+                var articleContent = articlesData[uid];
+                refsTemplates.push(refsFn({
+                  pmid: articleContent.uid,
+                  title: articleContent.title,
+                  author: (_.isArray(articleContent.authors) && articleContent.authors.length > 0) ? (articleContent.authors[0].name + ' et al.') : 'Unknown',
+                  source: articleContent.source,
+                  date: (new Date(articleContent.pubdate)).getFullYear()
+                }));
+              });
+              refsTemplates.push('</ul>');
+            }
+
+            dfd.resolve(refsTemplates.join(''));
+          }, function(error) {
+            dfd.reject(error);
+          }, function(status) {
+
+          });
+      return dfd.promise();
+    } else {
+      return '';
+    }
+  }
+
+  function getReferenceInfoCall(refs) {
+    if (refs) {
+      var dfd = $.Deferred();
+
+      $.get('http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&id=' + refs).then(
+          function(articles) {
+            dfd.resolve(articles);
+          },
+          function(error) {
+            dfd.reject(error);
+          },
+          function(status) {
+          });
+      return dfd.promise();
+    } else {
+      return '';
+    }
   }
 
   return {
     getTemplateFn: getTemplateFn,
     init: init
-  }
+  };
 })(window._, window.$);
