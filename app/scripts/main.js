@@ -48,7 +48,7 @@ var OncoKBCard = (function(_, $) {
 
     _.each(alterations, function(alteration) {
       var result = regExp.exec(alteration);
-      if(result.length === 4) {
+      if(_.isArray(result) && result.length === 4) {
         if(!positions.hasOwnProperty(result[2])) {
           positions[result[2]] = {};
         }
@@ -97,6 +97,7 @@ var OncoKBCard = (function(_, $) {
     var cardMainTemplateFn = getTemplateFn("oncokb-card");
     var cardMainTemplate = cardMainTemplateFn({
       title: data.title,
+      gene: data.gene,
       oncogenicity: data.oncogenicity || 'Unknown to be oncogenic',
       oncogenicityCitations: data.oncogenicityCitations,
       mutationEffect: data.mutationEffect || 'Pending curation',

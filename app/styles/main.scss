@@ -15,6 +15,7 @@ $orange: #ffa500;
 .oncokb-card {
   * {
     border-collapse: collapse;
+    box-sizing: border-box;
   }
   margin: auto;
   width: 500px;
@@ -220,6 +221,7 @@ $orange: #ffa500;
 
 .qtip.oncokb-card-qtip {
   border: 0;
+  max-width: 500px;
   .qtip-content {
     padding: 0;
   }
