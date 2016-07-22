@@ -1,6 +1,6 @@
 # OncoKB Card
 
-Please use following commonds to start the project
+Please use following commands to start the project
 ```
 npm install
 bower install
