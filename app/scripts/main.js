@@ -19,8 +19,8 @@ var OncoKBCard = (function(_, $) {
    * Compiles the template for the given template id
    * by using underscore template function.
    *
-   * @param templateId    html id of the template content
-   * @returns function    compiled template function
+   * @param {string} templateId - html id of the template content
+   * @return {function} - compiled template function
    */
   function compileTemplate(templateId) {
     return _.template($('#' + templateId).html());
@@ -29,15 +29,15 @@ var OncoKBCard = (function(_, $) {
   /**
    * Gets the template function corresponding to the given template id.
    *
-   * @param templateId    html id of the template content
-   * @returns function    template function
+   * @param {string} templateId - html id of the template content
+   * @return {function} - template function
    */
   function getTemplateFn(templateId) {
     // try to use the cached value first
     var templateFn = templateCache[templateId];
 
     // compile if not compiled yet
-    if (templateFn == null) {
+    if (!templateFn) {
       templateFn = compileTemplate(templateId);
       templateCache[templateId] = templateFn;
     }
@@ -45,6 +45,13 @@ var OncoKBCard = (function(_, $) {
     return templateFn;
   }
 
+  /**
+   * Return combined alterations name, separated by comma.
+   * Same location variant will be truncated into AALocationAllele e.g. V600E/K
+   *
+   * @param {Array} alterations - List of alterations
+   * @return {string} - Truncated alteration name
+   */
   function concatAlterations(alterations) {
     var positions = {};
     var regular = [];
@@ -57,25 +64,30 @@ var OncoKBCard = (function(_, $) {
           positions[result[2]] = {};
         }
         if (!positions[result[2]].hasOwnProperty(result[1])) {
-          //Avoid duplication, use object instead of array
+          // Avoid duplication, use object instead of array
           positions[result[2]][result[1]] = {};
         }
         positions[result[2]][result[1]][result[3]] = 1;
       } else {
         regular.push(alteration);
       }
-    })
+    });
 
     _.each(_.keys(positions).map(function(e) {
-      return Number(e)
+      return Number(e);
     }).sort(), function(position) {
       _.each(_.keys(positions[position]).sort(), function(aa) {
         regular.push(aa + position + _.keys(positions[position][aa]).sort().join('/'));
       });
-    })
+    });
     return regular.join(', ');
   }
 
+  /**
+   * Initialization function
+   * @param {object} data - initial data, please see the sample data in index.html
+   * @param {string} target - HTML class name, id, tag or everything acceptable by jQuery
+   */
   function init(data, target) {
     var treatmentTemplates = [];
     var levelTemplates = [];
@@ -105,7 +117,6 @@ var OncoKBCard = (function(_, $) {
       title: data.title,
       gene: data.gene,
       oncogenicity: data.oncogenicity || 'Unknown to be oncogenic',
-      oncogenicityCitations: data.oncogenicityCitations,
       mutationEffect: data.mutationEffect || 'Pending curation',
       mutationEffectCitations: data.mutationEffectCitations,
       clinicalSummary: data.clinicalSummary,
@@ -115,7 +126,7 @@ var OncoKBCard = (function(_, $) {
     });
 
     // Have to cache template in here. After Ajax call, we lost the template
-    var refsItem = getTemplateFn('oncokb-card-refs-item');
+    getTemplateFn('oncokb-card-refs-item');
 
     $(target).html(cardMainTemplate);
 
@@ -124,11 +135,13 @@ var OncoKBCard = (function(_, $) {
       $(target + ' .oncogenicity table').remove();
     }
 
+    // If no oncogenicity available, grey out the oncogenicity section
     if (!data.oncogenicity) {
       $(target + ' a.oncogenicity').addClass('grey-out');
       $(target + ' a.oncogenicity').addClass('tab-disabled');
     }
 
+    // If no mutation effect available, grey out the mutation effect section
     if (!data.mutationEffect) {
       $(target + ' a.mutation-effect').addClass('grey-out');
     }
@@ -141,6 +154,8 @@ var OncoKBCard = (function(_, $) {
       $(target + ' .enable-hover').each(function() {
         $(this).removeClass('enable-hover');
       });
+    } else if (data.biologicalSummary) {
+      $(target + ' .tab-pane.mutation-effect .refs').remove();
     }
 
     $(target + ' .oncokb-card .collapsible').on('click.collapse', '> li > .collapsible-header', function() {
@@ -148,7 +163,7 @@ var OncoKBCard = (function(_, $) {
       $(this).find('i.glyphicon-chevron-up').toggle();
     });
 
-    // $(target + ' .oncokb-card i.fa-book').each(function() {
+    // Initialize alll qtips on element which has non-empty qtip-content attribute
     $(target + ' .oncokb-card [qtip-content]').each(function() {
       var element = $(this);
       var content = element.attr('qtip-content');
@@ -167,7 +182,7 @@ var OncoKBCard = (function(_, $) {
           hide: {
             fixed: true,
             delay: 400,
-            event: "mouseleave"
+            event: 'mouseleave'
           },
           style: {
             classes: classes,
@@ -187,16 +202,16 @@ var OncoKBCard = (function(_, $) {
             render: function(event, api) {
               if (element.hasClass('fa-book')) {
                 $.when(getReferenceRows(element.attr('qtip-content')))
-                    .then(function(result) {
-                      api.set({
-                        'content.text': result
-                      });
-                      api.reposition(null, false);
-                    }, function() {
-                      api.set({
-                        'content.text': ''
-                      });
+                  .then(function(result) {
+                    api.set({
+                      'content.text': result
                     });
+                    api.reposition(null, false);
+                  }, function() {
+                    api.set({
+                      'content.text': ''
+                    });
+                  });
               }
             }
           }
@@ -204,40 +219,28 @@ var OncoKBCard = (function(_, $) {
       } else {
         $(this).remove();
       }
-    })
+    });
 
-    $(target + ' a[data-toggle="tab"]').on('shown.bs.tab', function() {
-      var isMutationEffect = $(this).hasClass('mutation-effect');
-      var isOncogenicity = $(this).hasClass('oncogenicity');
-      var classname = '';
-      var initialKey = '';
-      var citationKey = '';
+    // Attach event when mutation effect tab is clicked
+    $(target + ' a.mutation-effect[data-toggle="tab"]').on('shown.bs.tab', function() {
+      var classname = 'mutation-effect';
+      var initialKey = 'mutationRefInitialized';
+      var citationKey = 'mutationEffectCitations';
 
-      if (isMutationEffect) {
-        classname = 'mutation-effect';
-        initialKey = 'mutationRefInitialized';
-        citationKey = 'mutationEffectCitations';
-      } else if (isOncogenicity) {
-        classname = 'oncogenicity';
-        initialKey = 'oncogenicityInitialized';
-        citationKey = 'oncogenicityCitations';
-      }
-
-      if (classname && !status[initialKey]) {
+      if (data.mutationEffectCitations && !data.biologicalSummary && !status[initialKey]) {
         if (data[citationKey]) {
           $.when(getReferenceRows(data[citationKey]))
-              .then(function(data) {
-                if (data) {
-                  $(target + ' .tab-pane.' + classname + ' .refs').html(data);
-                } else {
-                  $(target + ' .tab-pane.' + classname + ' .refs').remove();
-                }
-              }, function(error) {
+            .then(function(data) {
+              if (data) {
+                $(target + ' .tab-pane.' + classname + ' .refs').html(data);
+              } else {
                 $(target + ' .tab-pane.' + classname + ' .refs').remove();
-              }, function() {
-                status[initialKey] = true;
-              });
-
+              }
+            }, function(error) {
+              $(target + ' .tab-pane.' + classname + ' .refs').remove();
+            }, function() {
+              status[initialKey] = true;
+            });
         } else {
           $(target + ' .tab-pane.' + classname + ' .refs').remove();
         }
@@ -247,60 +250,63 @@ var OncoKBCard = (function(_, $) {
     $(target + ' a.oncogenicity[data-toggle="tab"]').tab('show');
   }
 
+  /**
+   * Construct references HTML based on reference list.
+   *
+   * @param {Array} refs - Reference list
+   * @return {promise} - jQuery promise
+   */
   function getReferenceRows(refs) {
-    if (refs) {
-      var dfd = $.Deferred();
-      $.when(getReferenceInfoCall(refs))
-          .then(function(data) {
-            var refsTemplates = [];
-            var articlesData = data.result;
+    var dfd = $.Deferred();
+    $.when(getReferenceInfoCall(refs))
+      .then(function(data) {
+        var refsTemplates = [];
+        var articlesData = data.result;
 
-            if (articlesData !== undefined && _.isArray(articlesData.uids) && articlesData.uids.length > 0) {
-              refsTemplates = ['<ul class="list-group" style="margin-bottom: 0">'];
+        if (articlesData !== undefined && _.isArray(articlesData.uids) && articlesData.uids.length > 0) {
+          refsTemplates = ['<ul class="list-group" style="margin-bottom: 0">'];
 
-              _.each(articlesData.uids, function(uid) {
-                var refsFn = getTemplateFn('oncokb-card-refs-item');
-                var articleContent = articlesData[uid];
-                refsTemplates.push(refsFn({
-                  pmid: articleContent.uid,
-                  title: articleContent.title,
-                  author: (_.isArray(articleContent.authors) && articleContent.authors.length > 0) ? (articleContent.authors[0].name + ' et al.') : 'Unknown',
-                  source: articleContent.source,
-                  date: (new Date(articleContent.pubdate)).getFullYear()
-                }));
-              });
-              refsTemplates.push('</ul>');
-            }
-
-            dfd.resolve(refsTemplates.join(''));
-          }, function(error) {
-            dfd.reject(error);
-          }, function(status) {
-
+          _.each(articlesData.uids, function(uid) {
+            var refsFn = getTemplateFn('oncokb-card-refs-item');
+            var articleContent = articlesData[uid];
+            refsTemplates.push(refsFn({
+              pmid: articleContent.uid,
+              title: articleContent.title,
+              author: (_.isArray(articleContent.authors) && articleContent.authors.length > 0) ? (articleContent.authors[0].name + ' et al.') : 'Unknown',
+              source: articleContent.source,
+              date: (new Date(articleContent.pubdate)).getFullYear()
+            }));
           });
-      return dfd.promise();
-    } else {
-      return '';
-    }
+          refsTemplates.push('</ul>');
+        }
+
+        dfd.resolve(refsTemplates.join(''));
+      }, function(error) {
+        dfd.reject(error);
+      }, function(status) {
+
+      });
+    return dfd.promise();
   }
 
+  /**
+   * Get reference information from NCBI webservice.
+   * @param {Array} refs - Reference list
+   * @return {promise} - jQuery promise
+   */
   function getReferenceInfoCall(refs) {
-    if (refs) {
-      var dfd = $.Deferred();
+    var dfd = $.Deferred();
 
-      $.get('http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&id=' + refs).then(
-          function(articles) {
-            dfd.resolve(articles);
-          },
-          function(error) {
-            dfd.reject(error);
-          },
-          function(status) {
-          });
-      return dfd.promise();
-    } else {
-      return '';
-    }
+    $.get('http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&id=' + refs).then(
+      function(articles) {
+        dfd.resolve(articles);
+      },
+      function(error) {
+        dfd.reject(error);
+      },
+      function(status) {
+      });
+    return dfd.promise();
   }
 
   return {
