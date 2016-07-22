@@ -113,17 +113,28 @@ var OncoKBCard = (function(_, $) {
     });
 
     var cardMainTemplateFn = getTemplateFn('oncokb-card');
-    var cardMainTemplate = cardMainTemplateFn({
+    var cardMainTemplateMeta = {
       title: data.title,
       gene: data.gene,
-      oncogenicity: data.oncogenicity || 'Unknown to be oncogenic',
-      mutationEffect: data.mutationEffect || 'Pending curation',
+      oncogenicity: data.oncogenicity || 'Unknown',
+      oncogenicityCitations: data.oncogenicityCitations,
+      mutationEffect: data.mutationEffect || '',
       mutationEffectCitations: data.mutationEffectCitations,
       clinicalSummary: data.clinicalSummary,
       biologicalSummary: data.biologicalSummary,
       treatmentRows: treatmentTemplates.join(''),
       levelRows: levelTemplates.join('')
-    });
+    };
+
+    if (!cardMainTemplateMeta.mutationEffect) {
+      if (cardMainTemplateMeta.oncogenicity.toLowerCase().indexOf('oncogenic') !== -1) {
+        cardMainTemplateMeta.mutationEffect = 'Pending curation';
+      } else {
+        cardMainTemplateMeta.mutationEffect = 'Unknown';
+      }
+    }
+
+    var cardMainTemplate = cardMainTemplateFn(cardMainTemplateMeta);
 
     // Have to cache template in here. After Ajax call, we lost the template
     getTemplateFn('oncokb-card-refs-item');
