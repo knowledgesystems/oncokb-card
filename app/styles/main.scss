@@ -72,7 +72,6 @@ $orange: #ffa500;
       font-size: 14px;
       width: 100%;
       float: left;
-      line-height: 25px;
       color: white;
     }
     .title-content {
@@ -81,6 +80,7 @@ $orange: #ffa500;
       line-height: 25px;
       color: orange;
       font-size: 13px;
+      margin: -3px 0;
       text-transform: none;
       .fa.fa-book {
         color: #fff;
@@ -108,12 +108,12 @@ $orange: #ffa500;
       font-size: 14px;
       width: 100%;
       float: left;
-      line-height: 25px;
     }
     .title-content {
       width: 100%;
       float: left;
       line-height: 25px;
+      margin: -3px 0;
       color: orange;
       font-size: 13px;
       text-transform: none;
@@ -138,8 +138,8 @@ $orange: #ffa500;
   .footer {
     width: 100%;
     padding-top: 0;
-    line-height: 40px;
-    height: 40px;
+    line-height: 30px;
+    height: 32px;
     .oncokb-logo {
       height: 19px;
       margin-left: 10px;
@@ -151,11 +151,11 @@ $orange: #ffa500;
     }
   }
   .tabs {
-    height: 53px;
+    height: 50px;
   }
   .tabs .tab {
-    line-height: 53px;
-    height: 53px;
+    line-height: 50px;
+    height: 50px;
   }
   .tab-content > .tab-pane {
     padding: 5px 10px;
@@ -182,6 +182,7 @@ $orange: #ffa500;
     border-left: 0;
     border-right: 0;
     box-shadow: none;
+    margin: 0;
   }
 
   td, th {
@@ -195,8 +196,11 @@ $orange: #ffa500;
   }
 
   .levels {
-    padding: 0 10px;
+    padding: 5px 10px;
     font-size: 12px;
+    ul {
+      line-height: 8px;
+    }
     li {
       line-height: 16px;
       margin: 3px 0;
@@ -219,7 +223,7 @@ $orange: #ffa500;
     color: #fff;
     //padding-left: 10px;
     text-align: center;
-    padding: 10px;
+    padding: 5px 10px;
   }
 
   .grey-out {
@@ -228,6 +232,7 @@ $orange: #ffa500;
 
   .additional-info {
     padding: 5px 10px;
+    line-height: 20px;
     border-bottom: 1px solid lightgrey;
   }
 }
