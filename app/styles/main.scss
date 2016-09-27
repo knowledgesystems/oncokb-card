@@ -28,10 +28,6 @@ $orange: #ffa500;
   @import "collapsible";
   @import "tabs";
 
-  .item:not(:last-child) {
-    margin-bottom: 10px;
-  }
-
   .refs {
     img {
       margin: auto;
@@ -130,7 +126,7 @@ $orange: #ffa500;
   .disclaimer {
     color: grey;
     font-style: italic;
-    padding: 0 10px;
+    padding: 5px 10px;
   }
   .item-list {
     i.glyphicon-chevron-down, i.glyphicon-chevron-up {
@@ -160,6 +156,9 @@ $orange: #ffa500;
   .tabs .tab {
     line-height: 53px;
     height: 53px;
+  }
+  .tab-content > .tab-pane {
+    padding: 5px 10px;
   }
 
   .enable-hover > a:hover {
@@ -225,6 +224,11 @@ $orange: #ffa500;
 
   .grey-out {
     opacity: 0.4 !important;
+  }
+
+  .additional-info {
+    padding: 5px 10px;
+    border-bottom: 1px solid lightgrey;
   }
 }
 
