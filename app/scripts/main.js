@@ -315,7 +315,7 @@ var OncoKBCard = (function(_, $) {
   function getReferenceInfoCall(refs) {
     var dfd = $.Deferred();
 
-    $.get('http://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&id=' + refs).then(
+    $.get('https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&retmode=json&id=' + refs).then(
       function(articles) {
         dfd.resolve(articles);
       },
