@@ -50,7 +50,9 @@
   $(document).ready(function() {
     $('#main').load('template.html', function() {
       _.templateSettings = {
-        interpolate : /\{\{(.+?)\}\}/g
+        evaluate: /\{\{(.+?)\}\}/g,
+        interpolate : /\{\{=(.+?)\}\}/g,
+        scape: /\{\{-(.+?)\}\}/g
       };
 
       var meta = {
@@ -58,14 +60,14 @@
         gene: 'BRAF',
         oncogenicity: 'Oncogenic',
 //        oncogenicity: '',
-        oncogenicityCitations: '',
+        oncogenicityPmids: '',
         mutationEffect: 'Gain-of-function',
 //        mutationEffect: '',
-//        mutationEffectCitations: '',
-        mutationEffectCitations: '12068308, 15035987, 16273091, 20179705, 23153539, 25265492, 25287827, 25399551',
+//        mutationEffectPmids: '',
+        mutationEffectPmids: '12068308, 15035987, 16273091, 20179705, 23153539, 25265492, 25287827, 25399551',
         clinicalSummary: 'BRAF encodes an intracellular kinase and component of the pro-oncogenic MAP-kinase signaling pathway. BRAF is mutated in a diverse range of cancers, including melanoma, thyroid and lung cancer. The BRAF V600K mutation is known to be oncogenic.',
-//        biologicalSummary: 'This gain-of-function mutation is the second most commonly found BRAF mutation (second to V600E) and is located in the protein\'s kinase domain (PMID: 12068308, 16273091). BRAF V600K has modestly higher in vitro basal kinase activity compared to the wildtype protein; however, its inherent kinase activity is significantly lower than that of the V600E mutant (PMID: 15035987). Concordant with its higher in vitro activity, BRAF V600K shows a significantly stronger activation of downstream phospho-ERK (pERK) relative to wildtype BRAF (PMID: 15035987). Preliminary experimental evidence suggests that while there may be distinct clinicopathologic features that distinguish V600K from V600E (PMID: 22535154), these two variants appear to respond similarly to MAPK-pathway specific inhibitors (PMID: 23051966).BRAF encodes an intracellular kinase and component of the pro-oncogenic MAP-kinase signaling pathway. BRAF is mutated in a diverse range of cancers, including melanoma, thyroid and lung cancer. The BRAF V600K mutation is known to be oncogenic.',
-        biologicalSummary: '',
+        biologicalSummary: 'The PIK3CA E542K mutation abrogates the inhibitory effect of the p85 subunit, and results in constitutive activation of PIK3CA enzymatic activity (<i class="fa fa-book" qtip-content="20593314" style="color:black" data-hasqtip="1202"></i>). This aberrant activation of PIK3CA promotes downstream activation of AKT and other PIP3 dependent effectors, eventually leading to increased cell survival, proliferation, and motility. In vitro experiments in chicken embryo fibroblasts (CEFs), Ba/F3 cells, and MCF10A cells have demonstrated that this PIK3CA mutation promotes growth factor-independent proliferation; results in increased anchorage independent colony formation; and augments tumor growth in vivo (<i class="fa fa-book" qtip-content="17376864,26627007,16432179" style="color:black" data-hasqtip="1203"></i>).',
+//        biologicalSummary: '',
 //        biologicalSummary: undefined,
         treatments: [
           {
@@ -73,70 +75,77 @@
             variant: 'V600E',
             treatment: 'Dabrafenib',
             cancerType: 'Melanoma',
-            citations: '22608338, 22735384, 23051966, 23918947, 25089220, 25265492, 25399551'
+            pmids: '22608338, 22735384, 23051966, 23918947, 25089220, 25265492, 25399551',
+            abstracts: [{
+              abstract: 'content',
+              link: 'http://oncokb.org'
+            },{
+              abstract: 'content',
+              link: ''
+            },]
           },
           {
             level: '1',
             variant: 'V600E',
             treatment: 'Trametinib',
             cancerType: 'Melanoma',
-            citations: '20818844, 24508103, 25399551'
+            pmids: '20818844, 24508103, 25399551'
           },
           {
             level: '1',
             variant: 'V600E/K',
             treatment: 'Trametinib',
             cancerType: 'Melanoma',
-            citations: '22663011, 23846731, 25265492, 25399551'
+            pmids: '22663011, 23846731, 25265492, 25399551'
           },
           {
             level: '1',
             variant: 'V600E/K',
             treatment: 'Trametinib + Dabrafenib',
             cancerType: 'Melanoma',
-            citations: '22663011, 23020132, 23846731, 25089220, 25265492, 25287827, 25399551'
+            pmids: '22663011, 23020132, 23846731, 25089220, 25265492, 25287827, 25399551'
           },
           {
             level: '1',
             variant: 'V600E/K',
             treatment: 'Vemurafenib + Cobimetinib',
             cancerType: 'Melanoma',
-            citations: '25265494'
+            pmids: '25265494'
           },
 //          {
 //            level: '2A',
 //            variant: 'V600E/K',
 //            treatment: 'Trametinib + Dabrafenib',
 //            cancerType: 'Melanoma/Non-Small Cell Lung Cancer',
-//            citations: '22663011,23846731,25265492,25399551'
+//            pmids: '22663011,23846731,25265492,25399551'
 //          }
           // {
           //   level: '3A',
           //   variant: 'V600E',
           //   treatment: 'Vemurafenib',
           //   cancerType: 'Melanoma',
-          //   citations: '22663011,23846731,25265492,25399551'
+          //   pmids: '22663011,23846731,25265492,25399551'
           // },
           // {
           //   level: '3B',
           //   variant: 'V600E/K',
           //   treatment: 'Vemurafenib+Cobimetinib',
           //   cancerType: 'Melanoma',
-          //   citations: ''
+          //   pmids: ''
           // },
           // {
           //   level: '4',
           //   variant: 'V600E',
           //   treatment: 'Cobimetinib',
           //   cancerType: 'Melanoma',
-          //   citations: ''
+          //   pmids: ''
           // },
           // {
           //   level: 'R1',
           //   variant: 'V600E',
           //   treatment: 'Cobimetinib',
           //   cancerType: 'Melanoma',
-          //   citations: '22663011,23846731,25265492,25399551'
+          //   pmids: '22663011,23846731,25265492,25399551'
           // },
         ]
       };
