@@ -3,12 +3,12 @@ var OncoKBCard = (function(_, $) {
   var levels = ['1', '2A', '2B', '3A', '3B', '4', 'R1'];
   var levelDes = {
     '1': '<b>FDA-recognized</b> biomarker predictive of response to an <b>FDA-approved</b> drug <b>in this indication</b>',
-    '2A': '<b>Standard of care</b> biomarker predictive of response to an <b>FDA-approved</b> drug <b>in this indication</b>',
-    '2B': '<b>Standard of care</b> biomarker predictive of response to an <b>FDA-approved</b> drug <b>in another indication</b> but not standard of care for this indication',
-    '3A': '<b>Compelling clinical evidence</b> supports the biomarker as being predictive of response to a drug <b>in this indication</b> but neither biomarker and drug are standard of care',
-    '3B': '<b>Compelling clinical evidence</b> supports the biomarker as being predictive of response to a drug <b>in another indication</b> but neither biomarker and drug are standard of care',
-    '4': '<b>Compelling biological evidence</b> supports the biomarker as being predictive of response to a drug but neither biomarker and drug are standard of care',
-    'R1': '<b>Standard of care</b> biomarker predictive of <b>resistance</b> to an <b>FDA-approved</b> drug <b>in this indication</b>'
+    '2A': '<b>Standard care</b> biomarker predictive of response to an <b>FDA-approved</b> drug <b>in this indication</b>',
+    '2B': '<b>Standard care</b> biomarker predictive of response to an <b>FDA-approved</b> drug <b>in another indication</b>, but not standard care for this indication',
+    '3A': '<b>Compelling clinical evidence</b> supports the biomarker as being predictive of response to a drug <b>in this indication</b>, but neither biomarker and drug are standard care',
+    '3B': '<b>Compelling clinical evidence</b> supports the biomarker as being predictive of response to a drug <b>in another indication</b>, but neither biomarker and drug are standard care',
+    '4': '<b>Compelling biological evidence</b> supports the biomarker as being predictive of response to a drug, but neither biomarker and drug are standard care',
+    'R1': '<b>Standard care</b> biomarker predictive of <b>resistance</b> to an <b>FDA-approved</b> drug <b>in this indication</b>'
   };
   var status = {
     mutationRefInitialized: false,
