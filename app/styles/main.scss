@@ -11,6 +11,7 @@ $dark-blue: #1c75cd;
 $medium-blue: #03aedf;
 $light-blue: #9bdcff;
 $orange: #ffa500;
+$header-height: 45px;
 
 .oncokb-card {
   * {
@@ -18,6 +19,7 @@ $orange: #ffa500;
     box-sizing: border-box;
   }
   margin: auto;
+  margin-top: 20px;
   width: 500px;
   font-size: 14px;
   line-height: 18px;
@@ -68,8 +70,8 @@ $orange: #ffa500;
 
   .oncogenicity {
     .title {
-      line-height: 25px;
-      font-size: 14px;
+      line-height: 22px;
+      font-size: 13px;
       width: 100%;
       float: left;
       color: white;
@@ -77,9 +79,9 @@ $orange: #ffa500;
     .title-content {
       width: 100%;
       float: left;
-      line-height: 25px;
+      line-height: 23px;
       color: orange;
-      font-size: 13px;
+      font-size: 15px;
       margin: -3px 0;
       text-transform: none;
       .fa.fa-book {
@@ -91,10 +93,10 @@ $orange: #ffa500;
       text-align: center;
       margin-bottom: 0;
       thead > tr > th {
-        padding: 3px;
+        padding: 0 0 3px 0;
       }
       tbody > tr > td {
-        padding: 3px;
+        padding: 1px 0px;
         vertical-align: middle;
       }
     }
@@ -104,18 +106,18 @@ $orange: #ffa500;
     .title {
       color: white;
       font-size: 8px;
-      line-height: 25px;
-      font-size: 14px;
+      line-height: 22px;
+      font-size: 13px;
       width: 100%;
       float: left;
     }
     .title-content {
       width: 100%;
       float: left;
-      line-height: 25px;
+      line-height: 23px;
       margin: -3px 0;
       color: orange;
-      font-size: 13px;
+      font-size: 15px;
       text-transform: none;
     }
     .fa.fa-book {
@@ -138,7 +140,7 @@ $orange: #ffa500;
   .footer {
     width: 100%;
     padding-top: 0;
-    line-height: 30px;
+    line-height: 32px;
     height: 32px;
     .oncokb-logo {
       height: 19px;
@@ -151,14 +153,14 @@ $orange: #ffa500;
     }
   }
   .tabs {
-    height: 50px;
+    height: $header-height;
   }
   .tabs .tab {
-    line-height: 50px;
-    height: 50px;
+    line-height: 22px;
+    height: $header-height;
   }
   .tab-content > .tab-pane {
-    padding: 5px 10px;
+    padding: 5px 10px 0 10px;
   }
 
   .enable-hover > a:hover {
@@ -186,9 +188,13 @@ $orange: #ffa500;
   }
 
   td, th {
-    padding: 3px 5px;
     text-align: center;
+  }
+  th {
     font-size: 12px;
+  }
+  td {
+    font-size: 13px;
   }
 
   table thead th {
@@ -217,13 +223,13 @@ $orange: #ffa500;
   }
 
   .tip-header {
-    line-height: 25px;
+    line-height: 22px;
     font-size: 22px;
     background-color: $dark-blue;
     color: #fff;
     //padding-left: 10px;
     text-align: center;
-    padding: 7px 10px;
+    padding: 5px 10px;
   }
 
   .grey-out {
