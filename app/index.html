@@ -11,7 +11,7 @@
 
   <!-- build:css styles/vendor.css -->
   <!-- bower:css -->
-  <link rel="stylesheet" href="/bower_components/qtip2/jquery.qtip.min.css"/>
+  <link rel="stylesheet" href="/bower_components/qtip2/jquery.qtip.min.css" />
   <!-- endbower -->
   <!-- endbuild -->
 
@@ -51,9 +51,8 @@
   $(document).ready(function() {
     $('#main').load('template.html', function() {
       _.templateSettings = {
-        evaluate: /<%([\s\S]+?)%>/g,
-        interpolate: /\{\{(.+?)\}\}/g,
-        escape: /<%-([\s\S]+?)%>/g
+        evaluate: /<@([\s\S]+?)@>/g,
+        interpolate: /\{\{(.+?)\}\}/g
       };
 
       var meta = {
