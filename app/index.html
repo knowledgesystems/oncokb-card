@@ -11,7 +11,7 @@
 
   <!-- build:css styles/vendor.css -->
   <!-- bower:css -->
-  <link rel="stylesheet" href="/bower_components/qtip2/jquery.qtip.min.css" />
+  <link rel="stylesheet" href="/bower_components/qtip2/jquery.qtip.min.css"/>
   <!-- endbower -->
   <!-- endbuild -->
 
@@ -24,7 +24,8 @@
 </head>
 <body>
 <!--[if lt IE 10]>
-<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+  your browser</a> to improve your experience.</p>
 <![endif]-->
 <div class="container" id="main">
 </div>
@@ -50,9 +51,9 @@
   $(document).ready(function() {
     $('#main').load('template.html', function() {
       _.templateSettings = {
-        evaluate: /\{\{(.+?)\}\}/g,
-        interpolate : /\{\{=(.+?)\}\}/g,
-        scape: /\{\{-(.+?)\}\}/g
+        evaluate: /<%([\s\S]+?)%>/g,
+        interpolate: /\{\{(.+?)\}\}/g,
+        escape: /<%-([\s\S]+?)%>/g
       };
 
       var meta = {
@@ -79,7 +80,7 @@
             abstracts: [{
               abstract: 'content',
               link: 'http://oncokb.org'
-            },{
+            }, {
               abstract: 'content',
               link: ''
             },]
