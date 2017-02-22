@@ -55,7 +55,8 @@ var OncoKBCard = (function(_, $) {
   function concatAlterations(alterations) {
     var positions = {};
     var regular = [];
-    var regExp = new RegExp('([A-Z])([0-9]+)([^0-9/]+)');
+    // exactly search for the pattern of Single Letter, Number and Single Letter
+    var regExp = new RegExp('^([A-Z])([0-9]+)([A-Z]$)', 'i');
 
     _.each(alterations, function(alteration) {
       var result = regExp.exec(alteration);
