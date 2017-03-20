@@ -9,6 +9,7 @@ table, th, td {
 table {
   width:100%;
   display: table;
+  margin: 5px 0;
 
   &.bordered > thead > tr,
   &.bordered > tbody > tr {
@@ -38,6 +39,10 @@ table {
     }
   }
 
+  i.glyphicon-chevron-down, i.glyphicon-chevron-up {
+    color: $orange;
+    margin-right: 0;
+  }
 }
 
 thead {

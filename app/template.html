@@ -13,7 +13,7 @@
             </li>
             <li class="tab col s6 enable-hover">
               <a class="mutation-effect" data-toggle="tab" data-target=".mutation-effect">
-                <span class="title">Biological Effect</span>
+                <span class="title">Mutation Effect</span>
                 <span class="title-content">{{mutationEffect}}</span>
               </a>
             </li>
@@ -22,7 +22,13 @@
         </div>
         <div class="tab-content">
           <div role="tabpanel" class="col s12 tab-pane oncogenicity">
-            <div class="summary">{{clinicalSummary}}</div>
+            <div class="summary">{{clinicalSummary}}
+              <!--<ul>-->
+                <!--<li><b>Gene summary:</b> BRAF, an intracellular kinase, is frequently mutated in melanoma, thyroid and lung cancers.</li>-->
+                <!--<li><b>Variant summary:</b> The BRAF V600E mutation is known to be oncogenic.</li>-->
+                <!--<li><b>Tumor Type summary:</b> The RAF-inhibitors dabrafenib and vemurafenib, alone and in combination with the MEK-inhibitors trametinib and cobimetinib respectively, are FDA-approved for the treatment of patients with BRAF V600E and V600K mutant melanoma. Data support using the combination therapies dabrafenib plus trametinib or vemurafenib plus cobimetinib instead of single agent dabrafenib, vemurafenib, or trametinib.</li>-->
+              <!--</ul>-->
+            </div>
             <div>
               <table class="bordered table">
                 <thead>
@@ -31,7 +37,7 @@
                   <th scope="col">Alteration(s)</th>
                   <th scope="col">Drug(s)</th>
                   <th scope="col">Level-associated<br/>cancer type(s)</th>
-                  <th scope="col">Citation(s)</th>
+                  <th scope="col"></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -92,8 +98,12 @@
     <td>{{variant}}</td>
     <td>{{treatment}}</td>
     <td>{{cancerType}}</td>
-    <td><i class="fa fa-book" qtip-content="Treatment Info" qtip-treatment-index="{{treatmentIndex}}" position-my="top right"
-           position-at="bottom left"></i></td>
+    <td>
+        <span class="secondary-content">
+                <i class="glyphicon glyphicon-chevron-down"></i>
+                <i class="glyphicon glyphicon-chevron-up" style="display: none"></i>
+              </span>
+    </td>
   </tr>
 </script>
 

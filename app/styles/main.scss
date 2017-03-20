@@ -22,6 +22,7 @@ $header-height: 45px;
   width: 500px;
   font-size: 14px;
   line-height: 18px;
+  margin-top: 50px;
 
   @import "global";
   @import "level-icon";
@@ -95,7 +96,7 @@ $header-height: 45px;
         padding: 0 0 3px 0;
       }
       tbody > tr > td {
-        padding: 1px 0px;
+        padding: 1px 3px;
         vertical-align: middle;
       }
     }
@@ -222,8 +223,8 @@ $header-height: 45px;
   }
 
   .tip-header {
-    line-height: 22px;
-    font-size: 22px;
+    line-height: 20px;
+    font-size: 20px;
     background-color: $dark-blue;
     color: #fff;
     //padding-left: 10px;
