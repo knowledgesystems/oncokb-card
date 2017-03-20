@@ -24,9 +24,9 @@
           <div role="tabpanel" class="col s12 tab-pane oncogenicity">
             <div class="summary">{{clinicalSummary}}
               <!--<ul>-->
-                <!--<li><b>Gene summary:</b> BRAF, an intracellular kinase, is frequently mutated in melanoma, thyroid and lung cancers.</li>-->
-                <!--<li><b>Variant summary:</b> The BRAF V600E mutation is known to be oncogenic.</li>-->
-                <!--<li><b>Tumor Type summary:</b> The RAF-inhibitors dabrafenib and vemurafenib, alone and in combination with the MEK-inhibitors trametinib and cobimetinib respectively, are FDA-approved for the treatment of patients with BRAF V600E and V600K mutant melanoma. Data support using the combination therapies dabrafenib plus trametinib or vemurafenib plus cobimetinib instead of single agent dabrafenib, vemurafenib, or trametinib.</li>-->
+              <!--<li><b>Gene summary:</b> BRAF, an intracellular kinase, is frequently mutated in melanoma, thyroid and lung cancers.</li>-->
+              <!--<li><b>Variant summary:</b> The BRAF V600E mutation is known to be oncogenic.</li>-->
+              <!--<li><b>Tumor Type summary:</b> The RAF-inhibitors dabrafenib and vemurafenib, alone and in combination with the MEK-inhibitors trametinib and cobimetinib respectively, are FDA-approved for the treatment of patients with BRAF V600E and V600K mutant melanoma. Data support using the combination therapies dabrafenib plus trametinib or vemurafenib plus cobimetinib instead of single agent dabrafenib, vemurafenib, or trametinib.</li>-->
               <!--</ul>-->
             </div>
             <div>
@@ -47,7 +47,29 @@
             </div>
           </div>
           <div role="tabpanel" class="col s12 tab-pane mutation-effect">
-            <div>{{biologicalSummary}}</div>
+            <!--<div>{{biologicalSummary}}</div>-->
+            <!--<div>-->
+              <!--<ul class="nav nav-tabs nav-tabs-responsive">-->
+                <!--{{aaMutationEffectsHeader}}-->
+              <!--</ul>-->
+              <!--<div class="tab-content">-->
+                <!--{{aaMutationEffectsContent}}-->
+              <!--</div>-->
+            <!--</div>-->
+            <p>While the BRAF V600A mutation has not been functionally characterized, V600 is a mutation hotspot and other amino acid substitutions at this position (V600E/G/K) have been shown to be activating and oncogenic.</p>
+            <table class="bordered table">
+              <thead>
+              <tr>
+                <th scope="col">Alternative Allele</th>
+                <th scope="col">Mutation Effect</th>
+                <th scope="col">Citations</th>
+              </tr>
+              </thead>
+              <tbody>
+              {{aaMutationEffectsRows}}
+              </tbody>
+            </table>
+
             <div class="refs">
               <img src="images/loader.gif" alt="Loading...">
             </div>
@@ -107,6 +129,22 @@
   </tr>
 </script>
 
+<script type="text/template" id="oncokb-card-alternative-allele-mutation-table">
+  <tr>
+    <td>{{name}}</td>
+    <td>{{mutatonEffect}}</td>
+    <td><i class="fa fa-book" qtip-content="" style="color:black"></i></td>
+  </tr>
+</script>
+
+<script type="text/template" id="oncokb-card-alternative-allele-mutation-effect-row">
+  <tr>
+    <td>{{name}}</td>
+    <td>{{mutationEffect}}</td>
+    <td><i class="fa fa-book" style="color:black"></i></td>
+  </tr>
+</script>
+
 <script type="text/template" id="oncokb-card-level-list-item">
   <li><i class="level-icon level-{{level}}"></i><span>{{levelDes}}</span>
   </li>
@@ -121,12 +159,21 @@
 
 <script type="text/template" id="oncokb-card-abstract-item">
   <li class="list-group-item" style="width: 100%">
-    <@ if(link)  { @>
+    <@ if(link) { @>
     <a href="{{link}}" target="_blank">
       <@ } @>
       <b>{{abstract}}</b>
-      <@  if(link)  { @>
+      <@ if(link) { @>
     </a>
     <@ } @>
   </li>
+</script>
+
+<script type="text/template" id="oncokb-card-alternative-allele-mutation-effect-header">
+  <li class="alternative-allele-mutation-effect {{className}}">
+    <a data-toggle="tab" href="#{{name}}">{{name}} ({{mutationEffect}})</a>
+  </li>
+</script>
+<script type="text/template" id="oncokb-card-alternative-allele-mutation-effect-content">
+  <div id="{{name}}" class="tab-pane fade {{className}}">{{description}}</div>
 </script>

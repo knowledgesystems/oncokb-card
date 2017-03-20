@@ -29,6 +29,7 @@ $header-height: 45px;
   @import "table";
   @import "collapsible";
   @import "tabs";
+  @import "respTabs";
 
   .refs {
     img {
@@ -199,6 +200,10 @@ $header-height: 45px;
 
   table thead th {
     border-bottom: 2px solid $dark-blue;
+  }
+
+  .nav > li > a {
+    padding: 5px 5px;
   }
 
   .levels {

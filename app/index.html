@@ -56,12 +56,12 @@
       };
 
       var meta = {
-        title: 'BRAF V600E in Melanoma',
+        title: 'BRAF V600A in Melanoma',
         gene: 'BRAF',
         oncogenicity: 'Oncogenic',
 //        oncogenicity: '',
         oncogenicityPmids: '',
-        mutationEffect: 'Gain-of-function',
+        mutationEffect: 'Likely Gain-of-Function',
 //        mutationEffect: '',
 //        mutationEffectPmids: '',
         mutationEffectPmids: '12068308, 15035987, 16273091, 20179705, 23153539, 25265492, 25287827, 25399551',
@@ -69,6 +69,23 @@
         biologicalSummary: 'The PIK3CA E542K mutation abrogates the inhibitory effect of the p85 subunit, and results in constitutive activation of PIK3CA enzymatic activity (<i class="fa fa-book" qtip-content="20593314" style="color:black" data-hasqtip="1202"></i>). This aberrant activation of PIK3CA promotes downstream activation of AKT and other PIP3 dependent effectors, eventually leading to increased cell survival, proliferation, and motility. In vitro experiments in chicken embryo fibroblasts (CEFs), Ba/F3 cells, and MCF10A cells have demonstrated that this PIK3CA mutation promotes growth factor-independent proliferation; results in increased anchorage independent colony formation; and augments tumor growth in vivo (<i class="fa fa-book" qtip-content="17376864,26627007,16432179" style="color:black" data-hasqtip="1203"></i>).',
 //        biologicalSummary: '',
 //        biologicalSummary: undefined,
+        aaMutationEffects:[
+          {
+            name: 'V600E',
+            mutationEffect: 'Gain-of-Function',
+            description: 'The BRAF V600E mutation is located in the kinase domain in exon 15 of the protein. It is the most prevalent BRAF mutation, and also the most thoroughly biologically characterized (<i class="fa fa-book" qtip-content="12068308, 16273091" style="color:black" data-hasqtip="1202"></i>). This mutation is found in many cancers, but is most prevalent in melanoma, lung and thyroid cancer. Expression of BRAF V600E in COS or NIH-3T3 cells demonstrated that it is activating as measured by increased kinase activity, downstream MEK and ERK activation and foci-formation compared to wildtype BRAF (<i class="fa fa-book" qtip-content="15035987, 12068308, 16273091" style="color:black"></i>). This mutant no longer requires upstream RAS to be activated and signals as a monomer <i class="fa fa-book" qtip-content="" style="color:black"></i>.'
+          },
+          {
+            name: 'V600K',
+            mutationEffect: 'Gain-of-Function',
+            description: 'The BRAF V600K mutation is located in the kinase domain in exon 15 of the protein. This mutation has been found in melanoma (<i class="fa fa-book" qtip-content="" style="color:black"></i>). Substitutions at position V600 of BRAF, including the common BRAF V600E mutation, are known to be activating and oncogenic (<i class="fa fa-book" qtip-content="" style="color:black"></i>). Expression of this mutation in COS cells demonstrated that it is activating as measured by increased kinase activity and downstream MEK and ERK activation compared to wildtype BRAF (<i class="fa fa-book" qtip-content="" style="color:black"></i>). There is level 1 evidence that V600E or V600K mutations in BRAF are associated with response to FDA-approved combination of RAF-inhibitor dabrafenib and trametinib in melanoma (<i class="fa fa-book" qtip-content="" style="color:black"></i>), as well as dabrafenib monotherapy in non-small cell lung cancer (Abstract: Planchard et al. Abstract# 8009, ASCO 2013. http://meetinglibrary.asco.org/content/112427-132).'
+          },
+          {
+            name: 'V600G',
+            mutationEffect: 'Gain-of-Function',
+            description:'The BRAF V600G mutation is located in the kinase domain in exon 15 of the protein. This mutation has been found in cardio-facio-cutaneous syndrome (CFC), lung cancer and esophagogastric cancer (<i class="fa fa-book" qtip-content="" style="color:black"></i>). Substitutions at position V600 of BRAF, including the common BRAF V600E mutation, are known to be activating and oncogenic (<i class="fa fa-book" qtip-content="" style="color:black"></i>). Expression of this mutation in 293T cells demonstrated that this mutation is activating as measured by increased downstream ERK activation and increased transcription of downstream MAPK pathway transcriptional targets (e.g. ELK) compared to wildtype BRAF (<i class="fa fa-book" qtip-content="" style="color:black"></i>). A patient with non-small cell lung cancer (NSCLC) harboring the BRAF V600G mutation had stable disease in response to treatment with vemutafenib, while a patient with sarcoma and a patient with esophagogastric cancer both harboring the BRAF V600G mutation had progressive disease in response to vemurafenib (<i class="fa fa-book" qtip-content="" style="color:black"></i>).'
+          }
+        ],
         treatments: [
           {
             level: '1',

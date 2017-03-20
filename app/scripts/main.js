@@ -92,6 +92,9 @@ var OncoKBCard = (function(_, $) {
   function init(data, target) {
     var treatmentTemplates = [];
     var levelTemplates = [];
+    var aaMutationEffectsHeaderTemplates = [];
+    var aaMutationEffectsContentTemplates = [];
+    var aaMutationEffectsRowTemplates = [];
 
     _.each(data.treatments, function(treatment, index) {
       var treatmentFn = getTemplateFn('oncokb-card-treatment-row');
@@ -104,6 +107,28 @@ var OncoKBCard = (function(_, $) {
       }
       treatment.treatmentIndex = index;
       treatmentTemplates.push(treatmentFn(treatment));
+    });
+
+    _.each(data.aaMutationEffects, function(me, index) {
+      var meHeaderFn = getTemplateFn('oncokb-card-alternative-allele-mutation-effect-header');
+      var meContentFn = getTemplateFn('oncokb-card-alternative-allele-mutation-effect-content');
+      var meRowFn = getTemplateFn('oncokb-card-alternative-allele-mutation-effect-row');
+      var meHeader = $.extend(true, {}, me);
+      var meContent = $.extend(true, {}, me);
+
+      if (index === 0) {
+        meHeader.className = 'active';
+        meContent.className = 'in active';
+      } else if (index === 1) {
+        meHeader.className = 'next';
+        meContent.className = '';
+      } else {
+        meHeader.className = '';
+        meContent.className = '';
+      }
+      aaMutationEffectsHeaderTemplates.push(meHeaderFn(meHeader));
+      aaMutationEffectsContentTemplates.push(meContentFn(meContent));
+      aaMutationEffectsRowTemplates.push(meRowFn(me));
     });
 
     _.each(levels, function(level) {
@@ -125,6 +150,9 @@ var OncoKBCard = (function(_, $) {
       mutationEffectPmids: data.mutationEffectPmids,
       clinicalSummary: data.clinicalSummary,
       biologicalSummary: data.biologicalSummary,
+      aaMutationEffectsHeader: aaMutationEffectsHeaderTemplates.join(''),
+      aaMutationEffectsContent: aaMutationEffectsContentTemplates.join(''),
+      aaMutationEffectsRows: aaMutationEffectsRowTemplates.join(''),
       treatmentRows: treatmentTemplates.join(''),
       levelRows: levelTemplates.join('')
     };
@@ -284,6 +312,30 @@ var OncoKBCard = (function(_, $) {
     });
 
     $(target + ' a.oncogenicity[data-toggle="tab"]').tab('show');
+
+    $(document).on('show.bs.tab', '.nav-tabs-responsive [data-toggle="tab"]', function(e) {
+      var $target = $(e.target);
+      var $tabs = $target.closest('.nav-tabs-responsive');
+      var $current = $target.closest('li');
+      var $parent = $current.closest('li.dropdown');
+      $current = $parent.length > 0 ? $parent : $current;
+      var $next = $current.next();
+      var $prev = $current.prev();
+      var updateDropdownMenu = function($el, position){
+        $el
+          .find('.dropdown-menu')
+          .removeClass('pull-xs-left pull-xs-center pull-xs-right')
+          .addClass( 'pull-xs-' + position );
+      };
+
+      $tabs.find('>li').removeClass('next prev');
+      $prev.addClass('prev');
+      $next.addClass('next');
+
+      updateDropdownMenu( $prev, 'left' );
+      updateDropdownMenu( $current, 'center' );
+      updateDropdownMenu( $next, 'right' );
+    });
   }
 
   /**
