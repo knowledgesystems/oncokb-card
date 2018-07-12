@@ -1,3 +1,8 @@
+# Project Status:  🚨 Unmaintained 🚨
+
+This project is no longer maintained. We will not be accepting pull requests, addressing issues, nor making future releases.
+Instead, please use react OncoKB component under https://github.com/cBioPortal/cbioportal-frontend/blob/master/src/shared/components/annotation/
+
 # OncoKB Card
 
 OncoKB Card is a nice way to present OncoKB annotation.
